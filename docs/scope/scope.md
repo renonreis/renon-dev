@@ -23,7 +23,7 @@ _These are recommendations to keep your build orderly, not requirements. Skip an
 | # | Feature | Phase | Status |
 |---|---------|-------|--------|
 | 1 | Stack & architecture | Foundation | done |
-| 2 | Coding standards & tooling | Foundation | in-progress |
+| 2 | Coding standards & tooling | Foundation | done |
 | 3 | Content model & bilingual copy | Foundation | planned |
 | 4 | Page design in Paper | Foundation | done |
 | 5 | Layout & motion foundation | Foundation | planned |
@@ -53,7 +53,7 @@ Choose the static site stack and hosting shape, then scaffold a runnable project
 - [x] Test it: `/test stack & architecture`
 Spec [0002](../specs/0002-static-site-stack/index.md) · code in `src/`, `astro.config.mjs`, `scripts/`, `.github/workflows/`
 
-### 2. Coding standards & tooling
+### 2. Coding standards & tooling · done
 Capture conventions from the scaffolded project, then install lint, format and CI.
 **Done when:** root `AGENTS.md` (with its `## Git` block) reflects the real stack, and lint, format and build run clean in CI.
 - [x] Capture conventions + tooling choices: `/audit` · root `AGENTS.md`, `src/AGENTS.md`
