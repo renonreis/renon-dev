@@ -20,4 +20,4 @@ pnpm lint           # Biome lint and format check
 pnpm check:islands  # proves pages without a React island never load React
 ```
 
-Deploys never run on push or merge. They run only when you start the `deploy` workflow by hand in GitHub Actions (see [spec 0002](docs/specs/0002-static-site-stack/index.md)).
+GitHub Actions deploys to Cloudflare Pages after `site-check` passes: each pull request from this repo gets a preview at `pr-<number>.<project>.pages.dev` (linked in a comment on the pull request), and a merge into `main` publishes production (see [spec 0002](docs/specs/0002-static-site-stack/index.md)).

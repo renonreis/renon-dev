@@ -1,0 +1,137 @@
+# Spec 0002
+# AC-4: `site-check` is the one required check, on every pull request (forks included) and on main. No secrets.
+# AC-5: after `site-check` passes, `deploy` uploads to Cloudflare Pages. A pull request from this repo gets a
+# preview at the `pr-<number>` alias; a push to main (your merge is the explicit OK) publishes production.
+# Needs the repository secrets CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID; until they exist, deploy skips.
+# The optional variable CLOUDFLARE_PAGES_PROJECT overrides the project name (default `renon-dev`).
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.event.pull_request.number || github.ref }}
+  # Never cancel a production run halfway through an upload.
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  site-check:
+    name: site-check
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .node-version
+      - uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115 # v6.1.1
+        with:
+          cache: true
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec biome ci
+      - run: pnpm exec astro check
+      - run: pnpm exec astro build
+      - name: React only loads on island pages (AC-3)
+        run: pnpm check:islands
+
+  deploy:
+    name: deploy (${{ github.event_name == 'push' && 'production' || 'preview' }})
+    needs: site-check
+    # Pull requests from forks never receive secrets, so they get no preview.
+    if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      pull-requests: write
+    environment:
+      name: ${{ github.event_name == 'push' && 'production' || 'preview' }}
+      url: ${{ steps.upload.outputs.url }}
+    env:
+      COMMIT: ${{ github.event.pull_request.head.sha || github.sha }}
+      # `--branch` is only a label: Pages publishes to production when it matches the production branch (main).
+      BRANCH: ${{ github.event_name == 'push' && 'main' || format('pr-{0}', github.event.pull_request.number) }}
+    steps:
+      - name: Skip when Cloudflare secrets are missing
+        id: secrets
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
+            echo "::notice::Cloudflare secrets are not set, so nothing was deployed."
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - if: steps.secrets.outputs.ready == 'true'
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ env.COMMIT }}
+          persist-credentials: false
+      - if: steps.secrets.outputs.ready == 'true'
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .node-version
+      - if: steps.secrets.outputs.ready == 'true'
+        uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115 # v6.1.1
+        with:
+          cache: true
+      - if: steps.secrets.outputs.ready == 'true'
+        run: pnpm install --frozen-lockfile
+      - if: steps.secrets.outputs.ready == 'true'
+        run: pnpm exec astro build
+
+      - name: Upload to Cloudflare Pages
+        id: upload
+        if: steps.secrets.outputs.ready == 'true'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          WRANGLER_SEND_METRICS: "false"
+          PROJECT: ${{ vars.CLOUDFLARE_PAGES_PROJECT || 'renon-dev' }}
+        run: |
+          pnpm exec wrangler pages deploy dist \
+            --project-name "$PROJECT" \
+            --branch "$BRANCH" \
+            --commit-hash "$COMMIT" \
+            --commit-dirty=false 2>&1 | tee wrangler.log
+          url=$(grep -oE 'https://[A-Za-z0-9.-]+\.pages\.dev' wrangler.log | grep -v "://${BRANCH}\." | tail -1)
+          alias=$(grep -oE "https://${BRANCH}\.[A-Za-z0-9.-]+\.pages\.dev" wrangler.log | tail -1)
+          if [ -z "$url" ]; then
+            echo "::error::Wrangler did not report a deployment URL."
+            exit 1
+          fi
+          echo "url=${alias:-$url}" >> "$GITHUB_OUTPUT"
+          {
+            echo "### Cloudflare Pages deploy"
+            echo ""
+            echo "| | |"
+            echo "|---|---|"
+            echo "| Commit | \`${COMMIT}\` |"
+            echo "| Target | ${{ github.event_name == 'push' && 'production' || 'preview' }} (branch \`${BRANCH}\`) |"
+            echo "| Deployment URL | ${url} |"
+            echo "| Alias URL | ${alias:-none} |"
+          } >> "$GITHUB_STEP_SUMMARY"
+          echo "deployment=$url" >> "$GITHUB_OUTPUT"
+
+      - name: Comment the preview URL
+        if: steps.secrets.outputs.ready == 'true' && github.event_name == 'pull_request'
+        uses: marocchino/sticky-pull-request-comment@5770ad5eb8f42dd2c4f34da00c94c5381e49af88 # v3.0.5
+        with:
+          header: pages-preview
+          message: |
+            ### Cloudflare Pages preview
+
+            ${{ steps.upload.outputs.url }}
+
+            This exact upload: ${{ steps.upload.outputs.deployment }}
+            Commit `${{ github.event.pull_request.head.sha }}`
