@@ -35,4 +35,7 @@ jobs:
       - run: pnpm exec astro build
       - name: React only loads on island pages (AC-3)
         run: pnpm check:islands
+      - run: pnpm test
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm test:e2e
 

@@ -11,7 +11,7 @@ Planning lives in [`docs/scope/scope.md`](docs/scope/scope.md).
 You need Node 24 (the exact version is in `.node-version`) and pnpm 12 (pinned in `package.json`).
 
 ```sh
-pnpm install
+pnpm install        # also points git at .githooks (Biome runs on staged files before each commit)
 pnpm dev            # local dev server
 pnpm build          # static files in dist/
 pnpm preview        # serves the existing dist/ exactly as Cloudflare Pages will receive it

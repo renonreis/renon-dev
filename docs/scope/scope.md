@@ -23,7 +23,7 @@ _These are recommendations to keep your build orderly, not requirements. Skip an
 | # | Feature | Phase | Status |
 |---|---------|-------|--------|
 | 1 | Stack & architecture | Foundation | done |
-| 2 | Coding standards & tooling | Foundation | planned |
+| 2 | Coding standards & tooling | Foundation | in-progress |
 | 3 | Content model & bilingual copy | Foundation | planned |
 | 4 | Page design in Paper | Foundation | done |
 | 5 | Layout & motion foundation | Foundation | planned |
@@ -56,7 +56,8 @@ Spec [0002](../specs/0002-static-site-stack/index.md) · code in `src/`, `astro.
 ### 2. Coding standards & tooling
 Capture conventions from the scaffolded project, then install lint, format and CI.
 **Done when:** root `AGENTS.md` (with its `## Git` block) reflects the real stack, and lint, format and build run clean in CI.
-- [ ] Capture conventions + tooling choices: `/audit`
+- [x] Capture conventions + tooling choices: `/audit` · root `AGENTS.md`, `src/AGENTS.md`
+- [x] Install tooling: `/develop tooling` · Biome pre-commit hook (`.githooks/`), Vitest and Playwright in `site-check`
 
 ### 3. Content model & bilingual copy · needs a decision
 One content source that every section reads, in English and Portuguese, with copy drafted from the CVs (first person, real clients and metrics).

@@ -15,7 +15,8 @@
 		"check:islands": "ISLAND_CHECK=1 astro build && node scripts/check-islands.mjs dist-island-check",
 		"astro": "astro",
 		"test": "vitest run",
-		"test:e2e": "playwright test"
+		"test:e2e": "playwright test",
+		"prepare": "git config core.hooksPath .githooks 2>/dev/null || true"
 	},
 	"dependencies": {
 		"@astrojs/react": "7.1.9",
