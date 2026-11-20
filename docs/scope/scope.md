@@ -22,7 +22,7 @@ _These are recommendations to keep your build orderly, not requirements. Skip an
 
 | # | Feature | Phase | Status |
 |---|---------|-------|--------|
-| 1 | Stack & architecture | Foundation | planned |
+| 1 | Stack & architecture | Foundation | in-progress |
 | 2 | Coding standards & tooling | Foundation | planned |
 | 3 | Content model & bilingual copy | Foundation | planned |
 | 4 | Page design in Paper | Foundation | done |
@@ -44,10 +44,14 @@ _These are recommendations to keep your build orderly, not requirements. Skip an
 
 ## Foundations
 
-### 1. Stack & architecture · needs a decision · Beta
+### 1. Stack & architecture · in-progress · Beta
 Choose the static site stack and hosting shape, then scaffold a runnable project. Inputs: the renon.dev audit recommended a static build (`renonreis/renon.dev` `docs/audit/2026-11-20-zero-dawn-audit.md`); the reference prompt used a React, Vite, Tailwind, GSAP, Lenis stack.
 **Done when:** the stack and hosting approach are recorded in a spec, and the empty scaffold runs locally and builds to static files.
-- [ ] Decide the stack (spec): `/architect stack & architecture`
+- [x] Decide the stack (spec): `/architect stack & architecture`
+- [ ] Scaffold from the decision: `/develop stack & architecture: scaffold` (AC-1 to AC-6)
+- [ ] Verify it: `/check verify stack & architecture`
+- [ ] Test it: `/test stack & architecture`
+Spec [0002](../specs/0002-static-site-stack.md)
 
 ### 2. Coding standards & tooling
 Capture conventions from the scaffolded project, then install lint, format and CI.
