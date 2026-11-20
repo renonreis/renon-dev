@@ -49,7 +49,7 @@ Choose the static site stack and hosting shape, then scaffold a runnable project
 **Done when:** the stack and hosting approach are recorded in a spec, and the empty scaffold runs locally and builds to static files.
 - [x] Decide the stack (spec): `/architect stack & architecture`
 - [x] Scaffold from the decision: `/develop stack & architecture: scaffold` (AC-1 to AC-6)
-- [ ] Verify it: `/check verify stack & architecture`
+- [x] Verify it: `/check verify stack & architecture`
 - [ ] Test it: `/test stack & architecture`
 Spec [0002](../specs/0002-static-site-stack/index.md) · code in `src/`, `astro.config.mjs`, `scripts/`, `.github/workflows/`
 

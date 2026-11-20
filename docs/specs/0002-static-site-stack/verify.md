@@ -21,7 +21,7 @@ _Steps derived from spec 0002 acceptance criteria. `/check verify` runs these; `
 - [x] Read `.github/workflows/ci.yml` → only `site-check`, no deploy step and no Cloudflare secrets; the Pages dashboard shows Git integration with production branch `main`, build `pnpm build`, output `dist` → AC-5
 
 ## After the first pull request preview (needs the Git integration)
-- [ ] Push to a pull request branch → Cloudflare builds a preview, posts its URL on the pull request, and the build log shows Node from `.node-version` and pnpm 12 → AC-5
+- [x] Push to a pull request branch → Cloudflare builds a preview, posts its URL on the pull request, and the build log shows Node from `.node-version` and pnpm 12 → AC-5
 - [x] On that URL → `/` and `/pt/` load directly, `/pt` redirects to `/pt/`, a missing path returns HTTP 404 with the 404 page, responses carry `X-Robots-Tag: noindex`, and production did not change → AC-5
 
 ## Acceptance-criteria coverage
