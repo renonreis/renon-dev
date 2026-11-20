@@ -1,7 +1,7 @@
 # 0002. Static Astro site with React islands on Cloudflare Pages
 
 **Date**: 2026-11-20
-**Status**: In Progress
+**Status**: Accepted
 
 ## Summary
 
