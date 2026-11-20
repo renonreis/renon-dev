@@ -51,7 +51,7 @@ Choose the static site stack and hosting shape, then scaffold a runnable project
 - [x] Scaffold from the decision: `/develop stack & architecture: scaffold` (AC-1 to AC-6)
 - [ ] Verify it: `/check verify stack & architecture`
 - [ ] Test it: `/test stack & architecture`
-Spec [0002](../specs/0002-static-site-stack.md) · code in `src/`, `astro.config.mjs`, `scripts/`, `.github/workflows/`
+Spec [0002](../specs/0002-static-site-stack/index.md) · code in `src/`, `astro.config.mjs`, `scripts/`, `.github/workflows/`
 
 ### 2. Coding standards & tooling
 Capture conventions from the scaffolded project, then install lint, format and CI.

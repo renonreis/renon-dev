@@ -20,4 +20,4 @@ pnpm lint           # Biome lint and format check
 pnpm check:islands  # proves pages without a React island never load React
 ```
 
-Deploys never run on push or merge. They run only when you start the `deploy` workflow by hand in GitHub Actions (see [spec 0002](docs/specs/0002-static-site-stack.md)).
+Deploys never run on push or merge. They run only when you start the `deploy` workflow by hand in GitHub Actions (see [spec 0002](docs/specs/0002-static-site-stack/index.md)).
