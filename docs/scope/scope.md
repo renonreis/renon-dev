@@ -25,7 +25,7 @@ _These are recommendations to keep your build orderly, not requirements. Skip an
 | 1 | Stack & architecture | Foundation | planned |
 | 2 | Coding standards & tooling | Foundation | planned |
 | 3 | Content model & bilingual copy | Foundation | planned |
-| 4 | Page design in Paper | Foundation | planned |
+| 4 | Page design in Paper | Foundation | in-progress |
 | 5 | Layout & motion foundation | Foundation | planned |
 | 6 | Hero, navbar & footer | Release 1 | planned |
 | 7 | Selected work | Release 1 | planned |
@@ -59,10 +59,17 @@ One content source that every section reads, in English and Portuguese, with cop
 **Done when:** every word on the page lives in the content source in both languages, the language can be switched and is reflected in the URL, and the engineer has reviewed the copy.
 - [ ] Design it (spec): `/architect content model & bilingual copy`
 
-### 4. Page design in Paper · needs a decision
+### 4. Page design in Paper · in-progress
 Desktop and mobile screens for the whole page in Paper, from the references: section order, type scale, colours, spacing, art slots, and notes on the motion of each section.
 **Done when:** every section in features 6 to 10 has a desktop and a mobile screen in Paper with placeholder art slots, and the engineer approved them.
-- [ ] Design it (spec): `/architect page design`
+- [x] Design it (spec): `/architect page design`
+- [ ] Build it: `/develop page design`
+   - [ ] Paper file and style artboard: palette, type, spacing, components, focus states (AC-2, AC-7)
+   - [ ] Every section at desktop width with real copy and labelled placeholders (AC-1, AC-3 to AC-6)
+   - [ ] Phone artboards, Portuguese length check, motion notes, contrast (AC-1, AC-4, AC-7, AC-8)
+   - [ ] Review with you until approved (AC-9)
+- [ ] Verify it: `/check verify page design`
+Spec [0001](../specs/0001-page-design.md)
 
 ### 5. Layout & motion foundation · needs a decision
 Shared pieces every section stands on: page grid, smooth scrolling, the cursor glow, section transitions, and the reduced motion and keyboard baseline.
@@ -87,7 +94,7 @@ What you can be hired for (for example tech leadership, design systems, frontend
 - [ ] Build it: `/develop services`
 
 ### 9. About & highlights
-A short bio set in Curitiba, plus the wide alternating highlight cards (availability, community, a case study, off the clock).
+A short bio set in Curitiba, plus two wide alternating highlight cards (open to conversations, off the clock).
 **Done when:** the bio and highlight cards render with text on the side the art leaves free, in both languages.
 - [ ] Build it: `/develop about & highlights`
 
@@ -103,7 +110,7 @@ Title, description, social cards, language alternates and a sitemap for both lan
 
 ### 12. Launch on renon.dev · needs a decision
 Move renon.dev from the WordPress site to the new site without losing it: the WordPress site stays reachable elsewhere or goes offline, by the engineer's choice. Any deploy needs the engineer's explicit OK.
-**Done when:** renon.dev serves the new site over HTTPS, `www` redirects, the WordPress site is preserved, and the page passes a Core Web Vitals check on mobile.
+**Done when:** renon.dev serves the new site over HTTPS, `www` redirects, the WordPress site is preserved, the published renon.dev contact address receives mail, and the page passes a Core Web Vitals check on mobile.
 - [ ] Design it (spec): `/architect launch on renon.dev`
 
 ## Release 2: the cinematic layer
