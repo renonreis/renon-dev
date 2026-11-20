@@ -75,7 +75,7 @@ Layers deliberately left out: database, auth, background jobs and server side co
 - [ ] Feature 2: capture conventions with `/audit` once the scaffold exists, and choose the test runners there (Vitest and Playwright are the likely fit). CI itself is built in the scaffold (AC-4); feature 2 extends it.
 - [ ] Feature 14: define how the Release 2 gate is measured (a repeatable throttled phone run in both languages with scripted interactions; lab LCP and CLS, Event Timing as a stand in for field INP). Start with one compressed clip plus poster under the 25 MiB Pages limit; if that fails the gate, keep Release 1 motion rather than assume R2 or Stream stays free.
 - [x] Before the first deploy: you connect the Pages project to GitHub (production branch `main`). Done: project `renon-dev`, host `renon-dev.pages.dev`.
-- [ ] After the first pull request preview: check direct navigation to `/` and `/pt/`, `/pt` redirecting to `/pt/`, a missing path returning HTTP 404, and that production did not change.
+- [x] After the first pull request preview: check direct navigation to `/` and `/pt/`, `/pt` redirecting to `/pt/`, a missing path returning HTTP 404, and that production did not change.
 - [ ] Record the installed Agent Skills (astro; gsap core, scrolltrigger, timeline, performance; cloudflare, wrangler, web perf) in `AGENTS.md` when `/audit` runs.
 
 ## Rationale
