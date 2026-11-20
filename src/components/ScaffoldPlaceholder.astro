@@ -1,0 +1,44 @@
+---
+import { homePath, type Locale } from "../i18n/routes";
+
+// Labelled placeholder copy for the scaffold. Feature 3 replaces it with the real bilingual copy.
+const copy = {
+	en: {
+		eyebrow: "Placeholder · scaffold",
+		title: "renon.dev is being rebuilt",
+		body: "Placeholder text. The real copy arrives with feature 3 (content model and bilingual copy).",
+		switchLabel: "Ver em português",
+		switchLocale: "pt",
+	},
+	pt: {
+		eyebrow: "Texto provisório · scaffold",
+		title: "renon.dev está em reconstrução",
+		body: "Texto provisório. O conteúdo real chega com a feature 3: ação, coração, você, não, já, à, ü.",
+		switchLabel: "View in English",
+		switchLocale: "en",
+	},
+} as const;
+
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+const text = copy[locale];
+---
+
+<main class="mx-auto flex max-w-content flex-col gap-3 px-3 py-12 desktop:px-8">
+	<p class="font-mono text-eyebrow leading-eyebrow font-medium tracking-label text-text-muted uppercase">
+		{text.eyebrow}
+	</p>
+	<h1 class="font-display text-hero-title-sm leading-hero-title-sm font-semibold tracking-display desktop:text-hero-title desktop:leading-hero-title">
+		{text.title}
+	</h1>
+	<p class="max-w-[60ch] text-body-lg leading-body-lg text-text-muted">{text.body}</p>
+	<a
+		class="w-fit text-small leading-small font-medium underline underline-offset-4"
+		href={homePath[text.switchLocale]}
+		hreflang={text.switchLocale === 'pt' ? 'pt-BR' : 'en'}
+		lang={text.switchLocale === 'pt' ? 'pt-BR' : 'en'}>{text.switchLabel}</a
+	>
+</main>

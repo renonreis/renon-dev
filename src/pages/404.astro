@@ -1,0 +1,18 @@
+---
+import { homePath } from "../i18n/routes";
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout locale="en" title="Page not found · renon.dev" description="This page does not exist." indexable={false}>
+	<main class="mx-auto flex max-w-content flex-col gap-3 px-3 py-12 desktop:px-8">
+		<p class="font-mono text-eyebrow leading-eyebrow font-medium tracking-label text-text-muted uppercase">404</p>
+		<h1 class="font-display text-section-title-sm leading-section-title-sm font-semibold tracking-display">
+			Page not found
+		</h1>
+		<p class="text-body leading-body text-text-muted" lang="pt-BR">Página não encontrada.</p>
+		<p class="flex gap-3 text-small leading-small font-medium">
+			<a class="underline underline-offset-4" href={homePath.en}>Go to the home page</a>
+			<a class="underline underline-offset-4" href={homePath.pt} hreflang="pt-BR" lang="pt-BR">Ir para a página inicial</a>
+		</p>
+	</main>
+</BaseLayout>

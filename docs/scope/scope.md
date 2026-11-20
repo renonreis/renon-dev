@@ -48,10 +48,10 @@ _These are recommendations to keep your build orderly, not requirements. Skip an
 Choose the static site stack and hosting shape, then scaffold a runnable project. Inputs: the renon.dev audit recommended a static build (`renonreis/renon.dev` `docs/audit/2026-11-20-zero-dawn-audit.md`); the reference prompt used a React, Vite, Tailwind, GSAP, Lenis stack.
 **Done when:** the stack and hosting approach are recorded in a spec, and the empty scaffold runs locally and builds to static files.
 - [x] Decide the stack (spec): `/architect stack & architecture`
-- [ ] Scaffold from the decision: `/develop stack & architecture: scaffold` (AC-1 to AC-6)
+- [x] Scaffold from the decision: `/develop stack & architecture: scaffold` (AC-1 to AC-6)
 - [ ] Verify it: `/check verify stack & architecture`
 - [ ] Test it: `/test stack & architecture`
-Spec [0002](../specs/0002-static-site-stack.md)
+Spec [0002](../specs/0002-static-site-stack.md) · code in `src/`, `astro.config.mjs`, `scripts/`, `.github/workflows/`
 
 ### 2. Coding standards & tooling
 Capture conventions from the scaffolded project, then install lint, format and CI.

@@ -1,0 +1,104 @@
+# Spec 0002, AC-5: deploys only run when you start this workflow by hand. Starting it is your explicit OK.
+# Needs a GitHub environment named `cloudflare-pages` holding the secrets CLOUDFLARE_API_TOKEN and
+# CLOUDFLARE_ACCOUNT_ID and the variable CLOUDFLARE_PAGES_PROJECT (the Direct Upload project name).
+name: deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: Where to publish
+        type: choice
+        options: [preview, production]
+        default: preview
+        required: true
+
+permissions:
+  contents: read
+  checks: read
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: deploy (${{ inputs.target }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    environment: cloudflare-pages
+    steps:
+      - name: Production only runs from main
+        if: inputs.target == 'production' && github.ref != 'refs/heads/main'
+        run: |
+          echo "::error::Production deploys only run from main (this run is on ${GITHUB_REF})."
+          exit 1
+
+      - name: Production needs a passing site-check on this commit
+        if: inputs.target == 'production'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          conclusion=$(gh api "repos/${GITHUB_REPOSITORY}/commits/${GITHUB_SHA}/check-runs?check_name=site-check" \
+            --jq '[.check_runs[] | select(.name == "site-check")] | sort_by(.completed_at) | last | .conclusion')
+          if [ "$conclusion" != "success" ]; then
+            echo "::error::site-check has not passed on ${GITHUB_SHA} (latest result: ${conclusion:-none})."
+            exit 1
+          fi
+
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .node-version
+      - uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115 # v6.1.1
+        with:
+          cache: true
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec biome ci
+      - run: pnpm exec astro check
+      - run: pnpm exec astro build
+
+      - name: Upload to Cloudflare Pages
+        id: upload
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          PROJECT: ${{ vars.CLOUDFLARE_PAGES_PROJECT }}
+          # `--branch` is only a label: Pages publishes to production when it matches the production branch (main).
+          BRANCH: ${{ inputs.target == 'production' && 'main' || 'preview' }}
+        run: |
+          if [ -z "$PROJECT" ]; then
+            echo "::error::Set the CLOUDFLARE_PAGES_PROJECT variable on the cloudflare-pages environment."
+            exit 1
+          fi
+          pnpm exec wrangler pages deploy dist \
+            --project-name "$PROJECT" \
+            --branch "$BRANCH" \
+            --commit-hash "$GITHUB_SHA" \
+            --commit-dirty=false 2>&1 | tee wrangler.log
+          url=$(grep -oE 'https://[A-Za-z0-9.-]+\.pages\.dev' wrangler.log | tail -1)
+          if [ -z "$url" ]; then
+            echo "::error::Wrangler did not report a deployment URL."
+            exit 1
+          fi
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+
+      - name: Record the deployment
+        env:
+          TARGET: ${{ inputs.target }}
+          URL: ${{ steps.upload.outputs.url }}
+        run: |
+          {
+            echo "### Cloudflare Pages deploy"
+            echo ""
+            echo "| | |"
+            echo "|---|---|"
+            echo "| Commit | \`${GITHUB_SHA}\` |"
+            echo "| Ref | \`${GITHUB_REF_NAME}\` |"
+            echo "| Target | ${TARGET} |"
+            echo "| Deployment URL | ${URL} |"
+            echo "| Started by | @${GITHUB_ACTOR} |"
+          } >> "$GITHUB_STEP_SUMMARY"
