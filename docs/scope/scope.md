@@ -65,7 +65,7 @@ Desktop and mobile screens for the whole page in Paper, from the references: sec
 - [x] Design it (spec): `/architect page design`
 - [ ] Build it: `/develop page design`
    - [x] Paper file and style artboard: palette, type, spacing, components, focus states (AC-2, AC-7)
-   - [ ] Every section at desktop width with real copy and labelled placeholders (AC-1, AC-3 to AC-6)
+   - [x] Every section at desktop width with real copy and labelled placeholders (AC-1, AC-3 to AC-6)
    - [ ] Phone artboards, Portuguese length check, motion notes, contrast (AC-1, AC-4, AC-7, AC-8)
    - [ ] Review with you until approved (AC-9)
 - [ ] Verify it: `/check verify page design`
