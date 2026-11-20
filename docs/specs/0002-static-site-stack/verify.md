@@ -18,12 +18,11 @@ _Steps derived from spec 0002 acceptance criteria. `/check verify` runs these; `
 - [x] `dist/_astro/*.css` → only three `url()` font sources, all Latin WOFF2, each `@font-face` with `font-display: swap` → AC-6
 - [x] `gh pr checks <pr>` on a pull request → a job named `site-check` ran `biome ci`, `astro check`, `astro build` with no secrets → AC-4
 - [x] `gh api repos/renonreis/renon-dev/rulesets` → an active ruleset on the default branch requires `site-check` → AC-4
-- [ ] Read `.github/workflows/ci.yml` → `deploy` needs `site-check`, skips forks, uses `--branch pr-<number>` on pull requests and `--branch main` only on a push to `main`, never cancels a production run, holds Cloudflare secrets only in the deploy job, skips cleanly without them, and writes commit, target and URLs to the job summary → AC-5
+- [ ] Read `.github/workflows/ci.yml` → only `site-check`, no deploy step and no Cloudflare secrets; the Pages dashboard shows Git integration with production branch `main`, build `pnpm build`, output `dist` → AC-5
 
-## After the first pull request preview (needs the Pages project and secrets)
-- [ ] Push to a pull request from this repo → `deploy (preview)` runs after `site-check`, the job summary shows the commit, `preview` and a `*.pages.dev` URL, and one sticky comment on the pull request links `pr-<number>.<project>.pages.dev` → AC-5
+## After the first pull request preview (needs the Git integration)
+- [ ] Push to a pull request branch → Cloudflare builds a preview, posts its URL on the pull request, and the build log shows Node from `.node-version` and pnpm 12 → AC-5
 - [ ] On that URL → `/` and `/pt/` load directly, `/pt` redirects to `/pt/`, a missing path returns HTTP 404 with the 404 page, responses carry `X-Robots-Tag: noindex`, and production did not change → AC-5
-- [ ] Push a second commit to the same pull request → the sticky comment updates in place (no second comment) and the Pages production deployment is unchanged → AC-5
 
 ## Acceptance-criteria coverage
 - AC-1: build outputs, head links, 404 noindex, sitemap · AC-2: dev and preview · AC-3: `check:islands` and the network panel · AC-4: frozen install, `site-check`, ruleset · AC-5: workflow review now, hosted steps after the first pull request preview · AC-6: font requests, CSS sources, glyphs

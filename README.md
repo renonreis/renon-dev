@@ -20,4 +20,4 @@ pnpm lint           # Biome lint and format check
 pnpm check:islands  # proves pages without a React island never load React
 ```
 
-GitHub Actions deploys to Cloudflare Pages after `site-check` passes: each pull request from this repo gets a preview at `pr-<number>.<project>.pages.dev` (linked in a comment on the pull request), and a merge into `main` publishes production (see [spec 0002](docs/specs/0002-static-site-stack/index.md)).
+Cloudflare Pages deploys from GitHub on its own: every branch push gets a preview (linked on the pull request), and a merge into `main` publishes production. GitHub Actions only runs the required `site-check` (see [spec 0002](docs/specs/0002-static-site-stack/index.md)).

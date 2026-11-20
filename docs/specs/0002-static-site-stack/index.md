@@ -18,7 +18,7 @@ The new renon.dev is built with Astro, a framework that turns components into pl
 - **AC-2**: `pnpm dev` runs the site locally, and `pnpm preview` (`astro preview`, no rebuild) serves the existing `dist/`, so you can check the exact files that Cloudflare Pages will receive.
 - **AC-3**: A page with no React island makes no request for the React runtime. Proved with a test only page holding one hydrated island (React is fetched) next to the real pages (React is never fetched).
 - **AC-4**: Every pull request, forks included, runs one GitHub Actions job named `site-check` with no secrets: frozen install, `biome ci`, `astro check`, `astro build`. A repository ruleset on `main` makes `site-check` required, so a failure blocks the merge.
-- **AC-5**: The Cloudflare Pages project has no Git integration (Direct Upload); GitHub Actions uploads to it, and only after `site-check` passes on the same run. A pull request from this repository gets a preview at the `pr-<number>` alias, and the URL is posted as one sticky comment on the pull request. Forks get no preview (they never receive secrets). Production only publishes on a push to `main`, so your merge is the explicit OK. Deploy credentials exist only in the deploy job, production runs are never cancelled halfway, and the job summary records the commit, the target and the deployment URL that Wrangler returned. Without the Cloudflare secrets, the deploy job skips instead of failing.
+- **AC-5**: The Cloudflare Pages project is connected to this GitHub repository (Git integration) and builds with `pnpm build` into `dist`. Every pushed branch gets a preview deployment, with its URL posted on the pull request by Cloudflare; only `main` publishes production, so your merge is the explicit OK. The ruleset keeps anything off `main` until `site-check` passes. No deploy credentials live in GitHub.
 - **AC-6**: Fonts are served from the site itself (no request to a third party host), Latin subset WOFF2 only, `font-display: swap`, with the weights the Paper style board uses (Barlow Condensed 600 included), and the Portuguese accented glyphs render in the built page.
 
 ## Decision
@@ -27,7 +27,7 @@ The new renon.dev is built with Astro, a framework that turns components into pl
 
 **Implementation skills**: `astro` (`astrolicious/agent-skills`, `.agents/skills/astro/`) · `gsap-core`, `gsap-scrolltrigger`, `gsap-timeline`, `gsap-performance` (`greensock/gsap-skills`, `.agents/skills/`) · `cloudflare`, `wrangler`, `web-perf` (`cloudflare/skills`, `.agents/skills/`)
 
-The site is an Astro 7 static build in TypeScript, with React islands only where state is needed, styled with Tailwind 4 on the Paper tokens, animated with GSAP and Lenis, checked and deployed by GitHub Actions to Cloudflare Pages (a preview per pull request, production on merge).
+The site is an Astro 7 static build in TypeScript, with React islands only where state is needed, styled with Tailwind 4 on the Paper tokens, animated with GSAP and Lenis, checked by GitHub Actions and deployed by Cloudflare Pages from Git (a preview per branch, production on merge).
 
 ## Proposed stack
 
@@ -45,8 +45,8 @@ The site is an Astro 7 static build in TypeScript, with React islands only where
 | SEO plumbing | `@astrojs/sitemap` with `i18n` mapping `en` to `en` and `pt` to `pt-BR`, 404 excluded; non launch hosts (`*.pages.dev`) send `noindex` through a `_headers` rule | Sitemap and alternates from one config; titles, descriptions and OG images are feature 11. |
 | Lint and format | Biome 2 with an explicit `files.includes` scope (`biome ci` in CI) | One fast tool for lint and format; `astro check` adds type checking of `.astro` templates, a complementary check. |
 | CI | GitHub Actions job `site-check` on every pull request (forks included) and on `main`: frozen install, `biome ci`, `astro check`, `astro build`; required by a ruleset on `main`. Built in the scaffold; feature 2 adds tests and stricter rules | Every change is checked before merge, with no secrets in reach. |
-| Hosting | Cloudflare Pages, Direct Upload project (no Git integration), production branch `main`, created by you in the Cloudflare dashboard before the first deploy; name `renon-dev` if free, and the real project name and hostname are recorded in this spec once created. Root `404.html` always shipped | Free static requests and preview URLs on the network your DNS already uses; without a root `404.html`, Pages would answer unknown paths with the home page. |
-| Deploy | Job `deploy` in `.github/workflows/ci.yml`, after `site-check`, same pattern as the Triquetra Storybook preview: checks out the exact commit, builds, then `wrangler pages deploy dist --project-name <project> --branch pr-<number>` on a pull request from this repo (preview, GitHub environment `preview`, sticky comment with the alias URL) or `--branch main` on a push to `main` (production, GitHub environment `production`); writes commit, target, deployment URL and alias URL to the job summary. Project name from the variable `CLOUDFLARE_PAGES_PROJECT`, default `renon-dev` | Your merge into `main` is the explicit OK for production; previews never touch production. `--branch` is only a label that Pages compares to the production branch, so the returned URL is the one that identifies the upload, and the alias URL stays stable for the pull request. Production stays on the `*.pages.dev` address until launch (feature 12). |
+| Hosting | Cloudflare Pages project with Git integration, production branch `main`, created by you in the Cloudflare dashboard; name `renon-dev` if free, and the real project name and hostname are recorded in this spec once created. Root `404.html` always shipped | Free static requests and preview URLs on the network your DNS already uses; without a root `404.html`, Pages would answer unknown paths with the home page. |
+| Deploy | Cloudflare Pages Git integration, set up by you in the dashboard: production branch `main`, build command `pnpm build`, output directory `dist`, Node from `.node-version`. Each branch push builds a preview (`<branch>.<project>.pages.dev` alias plus a unique URL per deployment, posted on the pull request); a merge into `main` publishes production | Works like Vercel: no deploy workflow or secrets to maintain. Your merge is the explicit OK for production, and the required `site-check` keeps unchecked code off `main`. Production stays on the `*.pages.dev` address until launch (feature 12). |
 
 Layers deliberately left out: database, auth, background jobs and server side code (the page has none), and analytics (deferred, feature 18).
 
@@ -66,7 +66,7 @@ Layers deliberately left out: database, auth, background jobs and server side co
 - Cloudflare puts new hosting features into Workers first, so a move to Workers static assets may be worth it later.
 
 **Neutral**:
-- The deploy job needs two repository secrets: `CLOUDFLARE_API_TOKEN` (scoped to Cloudflare Pages edit on one account) and `CLOUDFLARE_ACCOUNT_ID`.
+- Cloudflare builds the site on its own build image, so it must keep honoring `.node-version` and the pinned pnpm version; `site-check` stays the build of record.
 - Moving renon.dev from WordPress to this Pages project is a custom domain and DNS change done at launch (feature 12), not now.
 
 ## Follow-up
@@ -74,7 +74,7 @@ Layers deliberately left out: database, auth, background jobs and server side co
 - [ ] Feature 1 scaffold sub task: create the project from this stack with `/develop stack & architecture: scaffold`.
 - [ ] Feature 2: capture conventions with `/audit` once the scaffold exists, and choose the test runners there (Vitest and Playwright are the likely fit). CI itself is built in the scaffold (AC-4); feature 2 extends it.
 - [ ] Feature 14: define how the Release 2 gate is measured (a repeatable throttled phone run in both languages with scripted interactions; lab LCP and CLS, Event Timing as a stand in for field INP). Start with one compressed clip plus poster under the 25 MiB Pages limit; if that fails the gate, keep Release 1 motion rather than assume R2 or Stream stays free.
-- [ ] Before the first deploy: you create the Direct Upload Pages project (production branch `main`), record its real name and hostname here, and add the two Cloudflare repository secrets (plus `CLOUDFLARE_PAGES_PROJECT` if the name is not `renon-dev`).
+- [x] Before the first deploy: you connect the Pages project to GitHub (production branch `main`). Record its real name and hostname here once the first build lands.
 - [ ] After the first pull request preview: check direct navigation to `/` and `/pt/`, `/pt` redirecting to `/pt/`, a missing path returning HTTP 404, and that production did not change.
 - [ ] Record the installed Agent Skills (astro; gsap core, scrolltrigger, timeline, performance; cloudflare, wrangler, web perf) in `AGENTS.md` when `/audit` runs.
 
