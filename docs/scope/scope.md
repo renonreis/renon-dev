@@ -25,7 +25,7 @@ _These are recommendations to keep your build orderly, not requirements. Skip an
 | 1 | Stack & architecture | Foundation | planned |
 | 2 | Coding standards & tooling | Foundation | planned |
 | 3 | Content model & bilingual copy | Foundation | planned |
-| 4 | Page design in Paper | Foundation | in-progress |
+| 4 | Page design in Paper | Foundation | done |
 | 5 | Layout & motion foundation | Foundation | planned |
 | 6 | Hero, navbar & footer | Release 1 | planned |
 | 7 | Selected work | Release 1 | planned |
@@ -59,7 +59,7 @@ One content source that every section reads, in English and Portuguese, with cop
 **Done when:** every word on the page lives in the content source in both languages, the language can be switched and is reflected in the URL, and the engineer has reviewed the copy.
 - [ ] Design it (spec): `/architect content model & bilingual copy`
 
-### 4. Page design in Paper · in-progress
+### 4. Page design in Paper · done
 Desktop and mobile screens for the whole page in Paper, from the references: section order, type scale, colours, spacing, art slots, and notes on the motion of each section.
 **Done when:** every section in features 6 to 10 has a desktop and a mobile screen in Paper with placeholder art slots, and the engineer approved them.
 - [x] Design it (spec): `/architect page design`
