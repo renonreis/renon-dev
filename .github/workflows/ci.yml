@@ -1,5 +1,5 @@
 # Spec 0002, AC-4: `site-check` is the one required check, on every pull request (forks included) and on main. No secrets.
-# Deploys are not here: the Cloudflare Pages Git integration builds every branch (preview) and main (production).
+# Deploys are not here: Cloudflare Workers Builds builds every branch (preview) and main (production).
 name: ci
 
 on:

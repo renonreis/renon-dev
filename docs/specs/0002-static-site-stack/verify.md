@@ -18,10 +18,10 @@ _Steps derived from spec 0002 acceptance criteria. `/check verify` runs these; `
 - [x] `dist/_astro/*.css` → only three `url()` font sources, all Latin WOFF2, each `@font-face` with `font-display: swap` → AC-6
 - [x] `gh pr checks <pr>` on a pull request → a job named `site-check` ran `biome ci`, `astro check`, `astro build` with no secrets → AC-4
 - [x] `gh api repos/renonreis/renon-dev/rulesets` → an active ruleset on the default branch requires `site-check` → AC-4
-- [ ] Read `.github/workflows/ci.yml` → only `site-check`, no deploy step and no Cloudflare secrets; the Pages dashboard shows Git integration with production branch `main`, build `pnpm build`, output `dist` → AC-5
+- [x] Read `.github/workflows/ci.yml` and `wrangler.jsonc` → CI runs only `site-check`, with no deploy step and no Cloudflare secrets; `wrangler.jsonc` serves `./dist` with `auto-trailing-slash` and `404-page`; `wrangler dev` answers `/` and `/pt/` 200, `/pt` redirects to `/pt/`, a missing path 404 with the 404 page → AC-5
 
-## After the first pull request preview (needs the Git integration)
-- [ ] Push to a pull request branch → Cloudflare builds a preview, posts its URL on the pull request, and the build log shows Node from `.node-version` and pnpm 12 → AC-5
+## After the first pull request preview (needs Workers Builds with build command `pnpm build`)
+- [ ] Push to a pull request branch → the `Workers Builds: renon-dev` check passes, a preview URL is reported on the pull request, and the build log shows Node from `.node-version` and pnpm 12 → AC-5
 - [ ] On that URL → `/` and `/pt/` load directly, `/pt` redirects to `/pt/`, a missing path returns HTTP 404 with the 404 page, responses carry `X-Robots-Tag: noindex`, and production did not change → AC-5
 
 ## Acceptance-criteria coverage
