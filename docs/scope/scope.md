@@ -64,12 +64,12 @@ Desktop and mobile screens for the whole page in Paper, from the references: sec
 **Done when:** every section in features 6 to 10 has a desktop and a mobile screen in Paper with placeholder art slots, and the engineer approved them.
 - [x] Design it (spec): `/architect page design`
 - [ ] Build it: `/develop page design`
-   - [ ] Paper file and style artboard: palette, type, spacing, components, focus states (AC-2, AC-7)
+   - [x] Paper file and style artboard: palette, type, spacing, components, focus states (AC-2, AC-7)
    - [ ] Every section at desktop width with real copy and labelled placeholders (AC-1, AC-3 to AC-6)
    - [ ] Phone artboards, Portuguese length check, motion notes, contrast (AC-1, AC-4, AC-7, AC-8)
    - [ ] Review with you until approved (AC-9)
 - [ ] Verify it: `/check verify page design`
-Spec [0001](../specs/0001-page-design.md)
+Spec [0001](../specs/0001-page-design.md) · design in Paper: [renon-dev](https://app.paper.design/file/01M7X587C321BGJ0TWYAX5C9ED)
 
 ### 5. Layout & motion foundation · needs a decision
 Shared pieces every section stands on: page grid, smooth scrolling, the cursor glow, section transitions, and the reduced motion and keyboard baseline.
