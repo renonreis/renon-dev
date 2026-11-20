@@ -27,7 +27,7 @@ Without a written design, `/develop` would invent layout, colour, states and cop
 - **AC-3**: Every art slot is a tinted gradient panel in a brand accent, labelled with the intended art, its aspect ratio and "Paper only". Nothing from the reference site appears (names, logos, characters, art, fonts, footage). Client and employer names appear only as plain text facts. No product screenshots of client work; the Sicredi slot is labelled as an original generic banking illustration.
 - **AC-4**: A copy sheet artboard holds every English string on the page. Narrative copy (bio, card descriptions, highlights) is first person; UI labels are plain. Every factual claim and number has a row in the Value sourcing table. Every constrained element (nav, pills, tags, metric items, headings) is also checked with draft Portuguese at 390 wide: text wraps and boxes grow, never ellipses or smaller type.
 - **AC-5**: The navbar shows the renon.dev wordmark, links to Work, Services, About and Contact (`#work`, `#services`, `#about`, `#contact`) with a current section state, an EN / PT switch showing the current language, and a "Hire me" pill. Bar height is 72 on desktop and 56 on phone. On phone the links and the pill sit in a disclosure menu below the bar (EN / PT stays visible), which closes on link selection or Escape. The pill appears once the hero's bottom clears the bar. Annotations state that a link moves focus to the target section heading, clear of the fixed bar.
-- **AC-6**: "Hire me", every "Let's talk" button and the footer contact pill are plain email links to `hello@renon.dev` (working value, see Follow-up); the footer shows the address as selectable text plus LinkedIn and GitHub; links that open a new tab are annotated as such; no other footer links.
+- **AC-6**: "Hire me", every "Let's talk" button and the footer contact pill are plain email links to `hello@renon.dev`; the footer shows the address as selectable text plus LinkedIn and GitHub; links that open a new tab are annotated as such; no other footer links.
 - **AC-7**: The style board shows default, hover, pressed, focus visible and (where they apply) current and open states for buttons, links, the language switch, the menu and actionable cards. Focus is a 2px contrasting outline with a 2px offset; every target is at least 44 by 44. Only cards that link somewhere take focus. Each section artboard carries its Release 1 motion note, its Release 2 note and its reduced motion behaviour, per the motion map below.
 - **AC-8**: Text meets WCAG AA contrast (4.5:1 body, 3:1 large titles, 3:1 for focus outlines and control borders) against its own background, including text placed over art panels, where a scrim or opaque backing is used.
 - **AC-9**: The engineer reviews the screens in Paper and approves them; the approval is recorded against the Paper file as it stood (date and a note in this spec's scope row), and any later change goes back through review.
@@ -95,7 +95,7 @@ Calls made here (engineer delegated): the condensed display face is Barlow Conde
 | 4 | Building now | Label "Building now"; two equal cards, art 16:9; phone: one column | Triquetra: my accessible React design system, tokens and components, docs at triquetra.renon.dev. Project Zero Dawn: my agentic engineering workflow, decisions written in the repo and run by AI agents. Each tagged "Open source", linking out | blue `#71a2f0` |
 | 5 | Services (`#services`) | Text only cards: desktop one large card and two stacked (2:1 split); phone: one column | Full product builds: Next.js and Node.js products, designed and shipped end to end. Tech leadership: I lead frontend squads, set standards and bring AI assisted workflows. Frontend rescue: performance, accessibility and code health for an existing product. Each with "Let's talk" | violet |
 | 6 | About (`#about`) | Backdrop slot 16:9 desktop ("Video: Curitiba at dusk"), title "Curitiba, Brazil." and bio on an opaque scrim; phone: art 4:3 above text | Bio from the CV summary in first person: 10 years in web development, TypeScript, React, Next.js, design systems, banking and e-commerce, accessibility, Tech Lead | blue |
-| 7 | Highlights | Two wide cards, art 2:1 desktop, text left then right; phone: art 4:3 above text | "Open to conversations": I'm Tech Lead at Raio, open to new opportunities and freelance work; button "Hire me". "Off the clock": personal anecdote, TBD until you supply it | coral, green `#5c985a` |
+| 7 | Highlights | Two wide cards, art 2:1 desktop, text left then right; phone: art 4:3 above text | "Open to conversations": I'm Tech Lead at Raio, open to new opportunities and freelance work; button "Hire me". "Off the clock": personal anecdote, placeholder marked TBD (content reviewed in feature 3) | coral, green `#5c985a` |
 | 8 | Clients and proof (`#contact` anchor is the footer, not here) | Header "Clients"; names wrap as a text row; metric strip, phone 2 by 2 grid | Names: Sicredi, Printi, Contabilizei, Meiuca, Raio. Metrics: 10 years · 25+ design system components · about 20% higher average order value · full Sicredi retail user base | green |
 | 9 | Footer (`#contact`) | Centred: wordmark, contact pill "Let's build something" with the email, socials row, © line | Email (selectable), LinkedIn, GitHub; EN / PT; "© <year of publication> Renon Reis" | neutral |
 
@@ -117,7 +117,7 @@ Calls made here (engineer delegated): the condensed display face is Barlow Conde
 
 | Link | Target | Opens |
 |---|---|---|
-| Hire me, Let's talk, footer pill | `mailto:hello@renon.dev` (working value) | mail client |
+| Hire me, Let's talk, footer pill | `mailto:hello@renon.dev` | mail client |
 | LinkedIn | linkedin.com/in/renonreis | new tab |
 | GitHub | github.com/renonreis | new tab |
 | Triquetra card | triquetra.renon.dev | new tab |
@@ -133,8 +133,8 @@ Calls made here (engineer delegated): the condensed display face is Barlow Conde
 | About, Proof | 10 years, bio | CV summary of qualifications |
 | Clients | client and employer names | CV experience entries |
 | Highlights | availability line | engineer's choice: open to conversations while Tech Lead at Raio |
-| Highlights | Off the clock anecdote | pending: the engineer supplies it before approval (AC-9) |
-| Links | email | engineer's choice of a renon.dev address; `hello@renon.dev` is the working value until confirmed |
+| Highlights | Off the clock anecdote | placeholder in the design; the engineer supplies it during the feature 3 content review (does not block AC-9) |
+| Links | email | `hello@renon.dev`, confirmed by the engineer on 2026-11-20; the engineer sets up the mailbox before launch |
 | Links | LinkedIn, GitHub | CV contact line |
 | Palette | colour values | current renon.dev theme tokens (`renonreis/renon.dev`, theme `resources/css/tokens/primitives/colors.scss`) |
 
@@ -187,5 +187,5 @@ Skateboard: the first usable result is the whole page in rough but complete form
 
 ## Follow-up
 
-- [ ] You supply the facts for the "Off the clock" card before approval.
-- [ ] You confirm the renon.dev contact address (`hello@renon.dev` is the working value).
+- [ ] You supply the facts for the "Off the clock" card during the feature 3 content review.
+- [ ] You set up the `hello@renon.dev` mailbox before launch (feature 12).
