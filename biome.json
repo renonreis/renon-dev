@@ -13,7 +13,10 @@
 			"astro.config.mjs",
 			"package.json",
 			"tsconfig.json",
-			"biome.json"
+			"biome.json",
+			"e2e/**",
+			"vitest.config.ts",
+			"playwright.config.ts"
 		]
 	},
 	"formatter": {

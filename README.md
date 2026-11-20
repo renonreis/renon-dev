@@ -18,6 +18,8 @@ pnpm preview        # serves the existing dist/ exactly as Cloudflare Pages will
 pnpm check          # astro check (types in .astro and .ts files)
 pnpm lint           # Biome lint and format check
 pnpm check:islands  # proves pages without a React island never load React
+pnpm test           # unit tests (Vitest)
+pnpm test:e2e       # browser tests against the built site (Playwright)
 ```
 
 Cloudflare Pages deploys from GitHub on its own: every branch push gets a preview (linked on the pull request), and a merge into `main` publishes production. GitHub Actions only runs the required `site-check` (see [spec 0002](docs/specs/0002-static-site-stack/index.md)).
