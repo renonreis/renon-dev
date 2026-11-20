@@ -14,10 +14,10 @@ You need Node 24 (the exact version is in `.node-version`) and pnpm 12 (pinned i
 pnpm install
 pnpm dev            # local dev server
 pnpm build          # static files in dist/
-pnpm preview        # serves the existing dist/ exactly as Cloudflare will receive it
+pnpm preview        # serves the existing dist/ exactly as Cloudflare Pages will receive it
 pnpm check          # astro check (types in .astro and .ts files)
 pnpm lint           # Biome lint and format check
 pnpm check:islands  # proves pages without a React island never load React
 ```
 
-Cloudflare Workers Builds deploys from GitHub on its own (static assets, see `wrangler.jsonc`): every branch push gets a preview URL, and a merge into `main` deploys production. GitHub Actions only runs the required `site-check` (see [spec 0002](docs/specs/0002-static-site-stack/index.md)).
+Cloudflare Pages deploys from GitHub on its own: every branch push gets a preview (linked on the pull request), and a merge into `main` publishes production. GitHub Actions only runs the required `site-check` (see [spec 0002](docs/specs/0002-static-site-stack/index.md)).

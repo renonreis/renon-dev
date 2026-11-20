@@ -1,3 +1,6 @@
-# Keep the workers.dev hosts (production and every preview URL) out of search results until launch.
-https://:worker.:account.workers.dev/*
+# Keep Cloudflare Pages hosts (production *.pages.dev and every preview deployment) out of search results.
+https://:project.pages.dev/*
+  X-Robots-Tag: noindex
+
+https://:version.:project.pages.dev/*
   X-Robots-Tag: noindex
