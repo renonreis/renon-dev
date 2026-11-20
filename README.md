@@ -1,7 +1,15 @@
 # renon-dev
 
-The next version of [renon.dev](https://renon.dev): a cinematic, scroll driven one page portfolio for Renon Reis, Senior Software Engineer and Tech Lead (TypeScript, React, Next.js, Node.js). Static, bilingual (English and Portuguese).
+Version 2 of [renon.dev](https://renon.dev): **Grand Theft Developer**, Renon Reis's portfolio built on the layout and motion of the GTA VI website. Fan-made GTA VI-style portfolio. Not affiliated with Rockstar Games.
 
-It replaces the current WordPress site at launch; that site keeps its own repository.
+React + Vite, Tailwind CSS, GSAP and Lenis.
 
-Planning lives in [`docs/scope/scope.md`](docs/scope/scope.md).
+```sh
+npm install
+npm run dev     # http://localhost:5173
+npm run build   # static files in dist/
+```
+
+- Every word on the page: [`CONTENT.md`](CONTENT.md) (mirrored in `src/content.js`).
+- Build rules, progress and findings: [`AGENTS.md`](AGENTS.md).
+- The v1 plan (own identity, designed in Paper): [`docs/scope/scope.md`](docs/scope/scope.md).

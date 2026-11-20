@@ -4,3 +4,10 @@ dist/
 .env
 .env.*
 !.env.example
+dist-ssr/
+*.local
+*.log
+.measure/
+# Screen recordings of the reference site: motion reference only, never shipped or published
+src/references/*
+!src/references/README.md
