@@ -88,14 +88,14 @@ Spec [0001](../specs/0001-page-design.md) · design in Paper: [renon-dev](https:
 Shared pieces every section stands on: page grid, smooth scrolling, the cursor glow, section transitions, and the reduced motion and keyboard baseline.
 **Done when:** an empty page scrolls smoothly with the cursor glow, `prefers-reduced-motion: reduce` gives a static readable page, and focus is always visible.
 - [x] Design it (spec): `/architect layout & motion foundation`
-- [ ] Build it: `/develop layout & motion foundation`
-   - [ ] Container, section shells in Paper order, scroll padding, skip link and `a11y.skipToContent` (AC-1, AC-2, AC-8)
-   - [ ] Motion module: GSAP ticker driving Lenis, `matchMedia` teardown, motion budget check (AC-3, AC-7, AC-9)
-   - [ ] In page anchors with focus, reveals on entry, cursor glow (AC-4 to AC-7)
-   - [ ] Vitest and Playwright motion checks, WebKit keyboard check (AC-1 to AC-9)
+- [x] Build it: `/develop layout & motion foundation`
+   - [x] Container, section shells in Paper order, scroll padding, skip link and `a11y.skipToContent` (AC-1, AC-2, AC-8)
+   - [x] Motion module: GSAP ticker driving Lenis, `matchMedia` teardown, motion budget check (AC-3, AC-7, AC-9)
+   - [x] In page anchors with focus, reveals on entry, cursor glow (AC-4 to AC-7)
+   - [x] Vitest and Playwright motion checks, WebKit keyboard check (AC-1 to AC-9)
 - [ ] Verify it: `/check verify layout & motion foundation`
 - [ ] Follow-up: skip link and the new section ids reviewed in Paper (spec 0004 Follow-up)
-Spec [0004](../specs/0004-layout-motion-foundation/index.md)
+Spec [0004](../specs/0004-layout-motion-foundation/index.md) · code in `src/components/` (`Section`, `SectionHeading`, `SkipLink`, `CursorGlow`, `Motion`, `sections/`), `src/scripts/motion/`, `scripts/check-motion-budget.mjs`
 
 ## Release 1: the whole page, simple motion
 
