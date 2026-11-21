@@ -6,7 +6,9 @@ Facts come from Renon's CV ("Senior Software Engineer - EN", as of 2026-11-17), 
 
 **Page:** title "Grand Theft Developer · Renon Reis, Senior Software Engineer & Tech Lead". Description: "Portfolio of Renon Reis, a senior software engineer and tech lead in Curitiba, Brazil. Fan-made GTA VI-style portfolio. Not affiliated with Rockstar Games."
 
-**Navbar:** GTD monogram (links to the top), menu icon, pill "Hire Me".
+**Loader:** our loader logo, no visible text; screen-reader label "Loading".
+
+**Navbar:** GTD monogram (links to the top), menu icon, pill "Hire Me". Skip link (visible on keyboard focus): "Skip to Main Content".
 
 **Hero**
 - Tagline (in the release date's place, two lines): "Senior Engineer & Tech Lead" / "Curitiba, Brazil · Remote"

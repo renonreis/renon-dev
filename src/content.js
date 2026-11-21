@@ -33,9 +33,14 @@ export const PAGE = {
   logoAlt: 'Grand Theft Developer',
 }
 
+export const LOADER = {
+  label: 'Loading',
+}
+
 export const NAVBAR = {
   monogramLabel: 'GTD, back to top',
   menuLabel: 'Menu',
+  skipLink: 'Skip to Main Content',
   hireMe: 'Hire Me',
 }
 

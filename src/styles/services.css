@@ -1,0 +1,107 @@
+/* Services (live Ultimate Edition `gihvh7*`, see AGENTS.md › Findings). */
+.svc {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows:
+    [intro-start] calc(100lvh - var(--u) * 48)
+    [title-start] calc(var(--u) * 48)
+    [intro-end] min-content
+    [title-end];
+}
+.svc-wrap {
+  position: relative;
+  z-index: -1;
+  grid-area: intro / 1;
+  height: 135lvh;
+  margin-top: -65lvh;
+}
+.svc-media {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+.svc-layer,
+.svc-poster,
+.svc-poster img,
+.svc-video {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.svc-layer { position: relative; }
+.svc-poster img,
+.svc-video {
+  object-fit: cover;
+  object-position: center;
+}
+.svc-video {
+  position: absolute;
+  inset: 0;
+}
+@media (min-aspect-ratio: 2.25 / 1) {
+  .svc-poster img,
+  .svc-video { object-position: 50% 25%; }
+}
+
+.svc-glow-row {
+  position: relative;
+  grid-area: title / 1;
+  margin-top: 135lvh;
+  pointer-events: none;
+}
+.svc-glow {
+  position: absolute;
+  top: -10%;
+  left: 50%;
+  z-index: -1;
+  width: 200vw;
+  height: 200svh;
+  border-radius: 1000px;
+  background: radial-gradient(100% 50% at 50% 50%, #18182d 0%, transparent 90%);
+  transform: translate(-50%, -5%);
+}
+@media (min-width: 768px) {
+  .svc-glow {
+    height: 100vmax;
+    transform: translate(-50%);
+  }
+}
+
+.svc-cards {
+  grid-area: title / 1;
+  margin-top: 135lvh;
+  padding-top: 0;
+}
+
+/* Phones: live's row calc is invalid there, so every layer starts at the section top. */
+@media (max-width: 767.98px) {
+  .svc { grid-template-rows: none; }
+  .svc-wrap,
+  .svc-glow-row,
+  .svc-cards { grid-area: 1 / 1; }
+}
+
+/* Live lofi keeps the grid rows (on phones too, where the row calc becomes valid with 100lvh), so
+   the cards overlap the bottom 48u (36u on phones) of the static backdrop. */
+@media (prefers-reduced-motion: reduce) {
+  .svc-wrap {
+    height: 100vh;
+    margin-top: 0;
+    mask-image: linear-gradient(#000 60.01%, rgba(0, 0, 0, 0.3) 80.01%, transparent 100.02%);
+  }
+  .svc-video,
+  .svc-glow-row { display: none; }
+  .svc-cards { margin-top: 0; }
+}
+@media (prefers-reduced-motion: reduce) and (max-width: 767.98px) {
+  .svc {
+    grid-template-rows:
+      [intro-start] calc(100lvh - var(--u) * 36)
+      [title-start] calc(var(--u) * 36)
+      [intro-end] min-content
+      [title-end];
+  }
+  .svc-wrap { grid-area: intro / 1; }
+  .svc-cards { grid-area: title / 1; }
+}

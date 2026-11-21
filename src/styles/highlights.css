@@ -1,0 +1,25 @@
+/* Highlights: four wide cards (live Feature cards `_15id12y*`, see AGENTS.md › Findings).
+   Section padding: 16u top (10u on phones), the --block (32u / 20u) below. */
+.hl {
+  --block-s: calc(var(--u) * 16);
+
+  padding-top: var(--block-s);
+}
+@media (max-width: 767.98px) {
+  .hl { --block-s: calc(var(--u) * 10); }
+}
+
+/* Portrait phones: our art is 5:2 (live serves 2:3 crops), so the picture fills only the 3:2 art
+   area on top, cropped around the subject, and fades into the card colour as on live. */
+@media (max-width: 767.98px) and (orientation: portrait) {
+  .hl-card .card-picture {
+    bottom: auto;
+    height: calc(100cqw * 2 / 3);
+  }
+  .hl-card .card-picture img,
+  .card-end.hl-card .card-picture img { object-position: var(--focal, 50%) 50%; }
+  .hl-card[data-follow] .card-picture,
+  .card-end.hl-card[data-follow] .card-picture {
+    mask-image: linear-gradient(180deg, #000 0%, #000 50%, transparent 100%);
+  }
+}
