@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import { getContent } from "../i18n/content";
 import {
 	defaultLocale,
 	homePath,
@@ -10,13 +11,21 @@ import {
 
 interface Props {
 	locale: Locale;
-	title: string;
-	description: string;
+	/** Defaults to the locale's `meta.title`; pass a content value only for pages like the 404. */
+	title?: string;
+	/** Defaults to the locale's `meta.description`. */
+	description?: string;
 	/** Off for pages that must stay out of search results (404, test pages). */
 	indexable?: boolean;
 }
 
-const { locale, title, description, indexable = true } = Astro.props;
+const { meta } = getContent(Astro.props.locale);
+const {
+	locale,
+	title = meta.title,
+	description = meta.description,
+	indexable = true,
+} = Astro.props;
 const site = Astro.site ?? new URL("https://renon.dev");
 const canonical = new URL(homePath[locale], site);
 ---
