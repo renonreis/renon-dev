@@ -1,0 +1,9 @@
+---
+import Section from "../Section.astro";
+import { shellHeights } from "./shell-heights";
+
+// Shell from spec 0004: no section heading, so the section is its own anchor focus target. Feature 9
+// builds the content.
+---
+
+<Section id="highlights" minHeight={shellHeights.highlights} />

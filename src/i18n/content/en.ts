@@ -9,6 +9,7 @@ export const en = {
 			"I'm Renon Reis, a Senior Software Engineer and Tech Lead in Curitiba, Brazil. I build design systems, banking journeys and e-commerce platforms with TypeScript, React and Next.js.",
 		ogImageAlt: "renon.dev: Renon Reis, Senior Software Engineer & Tech Lead",
 	},
+	a11y: { skipToContent: "Skip to content" },
 	nav: {
 		work: "Work",
 		services: "Services",

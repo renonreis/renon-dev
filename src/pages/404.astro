@@ -8,7 +8,7 @@ const en = getContent("en");
 ---
 
 <BaseLayout locale="en" title={en.notFound.title} description={en.notFound.body} indexable={false}>
-	<main class="mx-auto flex max-w-content flex-col gap-8 px-3 py-12 desktop:px-8">
+	<main id="main" tabindex="-1" class="container-page relative z-1 flex flex-col gap-8 py-12">
 		<p class="font-mono text-eyebrow leading-eyebrow font-medium tracking-label text-text-muted uppercase">
 			{shared.notFoundCode}
 		</p>

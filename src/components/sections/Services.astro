@@ -1,0 +1,18 @@
+---
+import { getContent } from "../../i18n/content";
+import type { Locale } from "../../i18n/routes";
+import Section from "../Section.astro";
+import SectionHeading from "../SectionHeading.astro";
+import { shellHeights } from "./shell-heights";
+
+// Shell from spec 0004: heading and reserved height only. Feature 8 builds the content.
+interface Props {
+	locale: Locale;
+}
+
+const { services } = getContent(Astro.props.locale);
+---
+
+<Section id="services" headingId="services-title" minHeight={shellHeights.services}>
+	<SectionHeading id="services-title" title={services.title} eyebrow={services.eyebrow} accent="violet" />
+</Section>

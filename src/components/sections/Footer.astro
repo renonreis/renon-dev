@@ -1,0 +1,15 @@
+---
+import { shellHeights } from "./shell-heights";
+
+// Shell from spec 0004: no heading, so the footer is its own anchor focus target. Feature 6 builds it.
+const { phone, desktop } = shellHeights.contact;
+---
+
+<footer
+	id="contact"
+	tabindex="-1"
+	class="shell-min relative z-1"
+	style={`--shell-min-phone: ${phone}px; --shell-min-desktop: ${desktop}px`}
+>
+	<div class="container-page"></div>
+</footer>

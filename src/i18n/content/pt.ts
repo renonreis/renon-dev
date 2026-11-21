@@ -11,6 +11,7 @@ export const pt = {
 		ogImageAlt:
 			"renon.dev: Renon Reis, Engenheiro de Software Sênior e Tech Lead",
 	},
+	a11y: { skipToContent: "Pular para o conteúdo" },
 	nav: {
 		work: "Trabalhos",
 		services: "Serviços",
