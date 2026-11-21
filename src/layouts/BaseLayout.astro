@@ -1,5 +1,8 @@
 ---
 import "../styles/global.css";
+import CursorGlow from "../components/CursorGlow.astro";
+import Motion from "../components/Motion.astro";
+import SkipLink from "../components/SkipLink.astro";
 import { getContent } from "../i18n/content";
 import {
 	defaultLocale,
@@ -54,6 +57,9 @@ const canonical = new URL(homePath[locale], site);
 		}
 	</head>
 	<body class="min-h-dvh bg-surface font-sans text-body leading-body text-text antialiased">
+		<SkipLink locale={locale} />
+		<CursorGlow />
 		<slot />
+		<Motion />
 	</body>
 </html>

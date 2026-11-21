@@ -35,7 +35,9 @@ jobs:
       - run: pnpm exec astro build
       - name: React only loads on island pages (AC-3)
         run: pnpm check:islands
+      - name: Motion JavaScript within 40 KB gzipped (spec 0004, AC-9)
+        run: pnpm check:budget
       - run: pnpm test
-      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm exec playwright install --with-deps chromium webkit
       - run: pnpm test:e2e
 
