@@ -70,7 +70,7 @@ One content source that every section reads, in English and Portuguese, with cop
    - [ ] Copy review pull request with the EN | PT table, review recorded here (AC-4, AC-9, AC-11)
 - [ ] Verify it: `/check verify content model & bilingual copy`
 - [ ] Follow-up: you supply the "Off the clock" story during the copy review
-Spec [0003](../specs/0003-content-model.md) · code in `src/i18n/content/`, `src/components/LanguageSwitch.astro`, `src/components/HomePage.astro`, `src/components/sections/Hero.astro`
+Spec [0003](../specs/0003-content-model/index.md) · code in `src/i18n/content/`, `src/components/LanguageSwitch.astro`, `src/components/HomePage.astro`, `src/components/sections/Hero.astro`
 
 ### 4. Page design in Paper · done
 Desktop and mobile screens for the whole page in Paper, from the references: section order, type scale, colours, spacing, art slots, and notes on the motion of each section.

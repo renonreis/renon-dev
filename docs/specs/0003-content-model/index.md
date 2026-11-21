@@ -7,16 +7,6 @@
 
 Every word on the page will live in plain TypeScript files, one for English and one for Portuguese, both checked against one shared shape, so a missing text in either language breaks the build instead of reaching visitors. Things that never change between languages (email, links, client names, stacks, the year) live once in a shared file. The English text is the copy sheet you approved in Paper; the Portuguese is drafted from it with the terms of your Portuguese CV, and you review both in a pull request. A small language switch keeps you on the same section when you change language, and nothing guesses your language for you.
 
-## Context
-
-The page is one long, mostly static scroll in two languages (`/` in English, `/pt/` in Portuguese, decided in spec 0002). Sections are built later, in features 6 to 10, and each one needs its copy from the same place in both languages; if copy lives inside components, the two languages drift apart and a missing translation only shows up when someone happens to visit `/pt/`.
-
-The English copy already exists and is approved: it is the copy sheet in the Paper file `renon-dev` (spec 0001). Every factual claim on it traces to the CV and the project READMEs. The Portuguese copy does not exist yet, and the engineer must review both before launch. One card ("Off the clock") still waits on a personal story only the engineer can supply.
-
-The stack is Astro 7, static output, TypeScript strict, functional style, zero JavaScript unless state demands it (root `AGENTS.md`). Titles and descriptions are wired by feature 11, but the scope's rule for this feature is that every word on the page lives in the content source.
-
-Without this decision, each section feature would invent its own copy storage, and the language switch, the hash behaviour on switch and the review flow would be decided ad hoc.
-
 ## Requirements
 
 **User stories**:
@@ -38,45 +28,6 @@ Without this decision, each section feature would invent its own copy storage, a
 - **AC-11**: The engineer reviews the copy in a pull request whose description holds an EN | PT table per section; the review outcome (date and a short note) is recorded on feature 3 in the scope before the feature is marked done.
 - **AC-12**: Each locale's content holds the page title, meta description and OG image alt text, and `BaseLayout` reads the title and description from it; feature 11 only adds the remaining head and OG wiring.
 
-## Options considered
-
-### Option 1: Typed TypeScript modules per locale
-
-A `Content` type, `en.ts` and `pt.ts` that satisfy it, a `shared.ts` for invariant values, and a pure `getContent(locale)` function.
-
-**Pros**:
-- A missing or extra key fails `astro check` in CI with no extra tooling.
-- No new dependency; fits the functional, immutable style (`as const`, `readonly`).
-- One file per language reads like a document for review.
-
-**Cons**:
-- Long prose is less pleasant to edit inside TypeScript strings than in Markdown.
-- Non developers cannot edit it without touching code.
-
-### Option 2: Astro content collections (YAML or JSON with Zod)
-
-One entry per section per locale, validated by a Zod schema at build time.
-
-**Pros**:
-- Data files instead of code; Markdown bodies are natural.
-- Schema validation with friendly errors.
-
-**Cons**:
-- Parity between locales needs extra code (Zod checks one file, not that both languages have the same keys).
-- More moving parts for a page that is almost all short strings.
-
-### Option 3: An i18n library (for example Paraglide)
-
-Message files compiled to typed functions, with tooling for translators.
-
-**Pros**:
-- Strong typing and tree shaking; scales to many pages and locales.
-- Translator tooling and plural rules.
-
-**Cons**:
-- A new dependency and build step for one page in two languages.
-- Message keys are flat strings, a poor fit for structured section data (cards, metrics).
-
 ## Decision
 
 **Chosen option**: Option 1: Typed TypeScript modules per locale.
@@ -84,14 +35,6 @@ Message files compiled to typed functions, with tooling for translators.
 All page copy lives in `src/i18n/content/` as typed modules (`types.ts`, `shared.ts`, `en.ts`, `pt.ts`, `index.ts`), read through a pure `getContent(locale)`; a small `LanguageSwitch.astro` with an inline hash script handles switching.
 
 **Implementation skills**: `astro` (`astrolicious/agent-skills`, `.agents/skills/astro/`)
-
-## Rationale
-
-The page is short structured copy, not long form content, and the strongest guarantee the engineer asked for is that the two languages cannot drift. Option 1 gets that from the type checker the project already runs in CI, with no new dependency; Option 2 needs custom parity code on top of Zod, and Option 3 brings tooling built for apps with many pages and translators. The cost of Option 1 (prose inside strings, developer only edits) is small here: the engineer is a developer, and review happens in a pull request where the table in the description gives a readable side by side.
-
-Plain text strings with separate link fields keep components free of `set:html`, so a copy edit can never inject markup. Keeping invariant values in `shared.ts` means an email or URL change touches one line, and the type makes it impossible for a translation to quietly change a fact.
-
-For switching, a static link cannot know the current section, so keeping the hash needs a few lines of inline script; a React island for this alone would break the "no JavaScript unless state" rule. Not detecting the visitor's language keeps the page static, indexable and shareable: `/` means English for everyone, and the PT link is always one tap away.
 
 ## Feature design
 
@@ -202,3 +145,5 @@ Skateboard: the whole content source lands first and the existing page reads it 
 
 - [ ] You supply the "Off the clock" story (both languages, or English and I translate) during the copy review.
 - [ ] Feature 6: the navbar and footer render `LanguageSwitch.astro` instead of the scaffold placement.
+
+The context, the options weighed and the reasoning live in [rationale.md](rationale.md).
