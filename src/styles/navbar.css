@@ -1,0 +1,152 @@
+/* Navbar: sizes from the live nav (multiples of --u, see index.css). */
+.nav {
+  --nav-pad: calc(var(--u) * 6);
+  --nav-btn: calc(var(--u) * 12);
+  --nav-logo: calc(var(--u) * 7);
+  --nav-gap: calc(var(--u) * 2.5);
+  --nav-bar-w: calc(var(--u) * 5);
+  --nav-bar-h: round(calc(var(--u) * 1), 0.5px);
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--nav-pad);
+  pointer-events: none;
+}
+@media (min-width: 768px) {
+  .nav {
+    --nav-pad: calc(var(--u) * 10);
+    --nav-logo: calc(var(--u) * 9);
+    --nav-gap: calc(var(--u) * 4);
+    --nav-bar-w: calc(var(--u) * 7);
+    --nav-bar-h: round(calc(var(--u) * 1.5), 0.5px);
+  }
+}
+@media (min-width: 768px) and (max-width: 1023.98px) {
+  .nav { --nav-pad: calc(var(--u) * 7); }
+}
+
+.nav-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--nav-btn);
+  height: var(--nav-btn);
+  border-radius: 9999px;
+  color: #fff;
+  outline: calc(var(--u) * 1) solid transparent;
+  pointer-events: auto;
+  cursor: pointer;
+  transition: color 0.2s ease-in-out, outline-color 0.2s ease-in-out;
+}
+.nav-icon:focus-visible {
+  color: #fff9cb;
+  outline-color: #fff;
+}
+@media (min-width: 768px) {
+  .nav-icon:hover { color: #fff9cb; }
+  .nav-icon:active { color: #ebe5b7; }
+}
+
+.nav-logo svg {
+  width: var(--nav-logo);
+  height: auto;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: var(--nav-gap);
+}
+
+/* Shown once the hero scrolls away (motion step); hidden at the top like the live pill. */
+.nav-pill {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.nav-menu {
+  flex-direction: column;
+  gap: var(--nav-bar-h);
+}
+.nav-menu span {
+  width: var(--nav-bar-w);
+  height: var(--nav-bar-h);
+  background: currentColor;
+}
+
+/* Pink pill button (live "puylxom"), three sizes. */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  min-width: calc(var(--u) * 24);
+  border-radius: 1000px;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  color: #0c0d1b;
+  background: #ffb2c6;
+  backdrop-filter: blur(6.25px);
+  outline: 4px solid transparent;
+  outline-offset: 4px;
+  pointer-events: auto;
+  cursor: pointer;
+  transition-property: color, background-color, outline-color, border-color;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-in-out;
+}
+.pill:hover,
+.pill:focus-visible { background: #fc97b1; }
+.pill:focus-visible { outline-color: #ffb2c6; }
+.pill:active { background: #f77e9c; }
+
+.pill-sm {
+  min-height: calc(var(--u) * 10);
+  padding: 0 calc(var(--u) * 5);
+  gap: calc(var(--u) * 1.5);
+  font-size: calc(var(--u) * 3.5);
+}
+.pill-md {
+  min-height: calc(var(--u) * 12);
+  padding: 0 calc(var(--u) * 6);
+  gap: calc(var(--u) * 2);
+  font-size: calc(var(--u) * 4);
+}
+.pill-lg {
+  min-height: calc(var(--u) * 14);
+  padding: 0 calc(var(--u) * 7);
+  gap: calc(var(--u) * 2);
+  font-size: calc(var(--u) * 4.5);
+}
+
+.skip-link {
+  position: fixed;
+  top: calc(var(--u) * 12);
+  left: 50%;
+  z-index: 20;
+  min-height: calc(var(--u) * 8);
+  padding: 0 calc(var(--u) * 3.5);
+  font-size: calc(var(--u) * 3);
+  color: #070810;
+  background: #fdfbff;
+  transform: translate(-50%);
+  opacity: 0;
+  pointer-events: none;
+}
+.skip-link:hover,
+.skip-link:focus-visible { background: #f1eaff; }
+.skip-link:focus {
+  opacity: 1;
+  pointer-events: auto;
+}

@@ -1,0 +1,99 @@
+/* Curitiba, Brazil. (live Vice City `n5j5p6*`, see AGENTS.md › Findings). */
+.city {
+  --city-title: calc(var(--u) * 18);
+  --city-body: calc(var(--u) * 10);
+
+  position: relative;
+  z-index: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows:
+    [intro-start] calc(100lvh - var(--city-title) * 1.1 - var(--u) * 6)
+    [title-start] calc(var(--city-title) * 1.1 + var(--u) * 6)
+    [intro-end] min-content
+    [title-end];
+  width: 100vw;
+  margin-top: -150lvh;
+  padding-bottom: calc(var(--u) * 16);
+}
+@media (max-width: 767.98px) {
+  .city {
+    --city-title: calc(var(--u) * 10);
+    --city-body: calc(var(--u) * 5);
+
+    padding-bottom: 0;
+  }
+}
+
+.city-wrap {
+  position: relative;
+  z-index: -1;
+  grid-area: intro / 1;
+  width: 100%;
+  height: 100%;
+}
+.city-media {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.city-layer,
+.city-poster,
+.city-poster img,
+.city-video {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.city-layer { position: relative; }
+.city-poster img,
+.city-video {
+  object-fit: cover;
+  object-position: 50% 50%;
+}
+.city-video {
+  position: absolute;
+  inset: 0;
+}
+
+.city-text {
+  display: grid;
+  grid-area: title / 1;
+  grid-template-columns: minmax(0, 1fr);
+  row-gap: calc(var(--city-body) / 1.5);
+  width: 100%;
+  max-width: 2560px;
+  margin: 250lvh auto 0;
+  padding: 0 var(--side);
+  color: #fec497;
+  background-image: radial-gradient(62.79% 100% at 50% 0%, #ffdf80 0%, #f4717c 50%, #e963c7 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.city-title {
+  font-size: var(--city-title);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+.city-bio {
+  font-size: var(--city-body);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.0125em;
+  text-wrap: balance;
+}
+
+/* Live lofi: no pin, the poster as a static block fading out at the bottom, the text overlapping
+   its last row. */
+@media (prefers-reduced-motion: reduce) {
+  .city { margin-top: 0; }
+  .city-wrap {
+    height: 100vh;
+    mask-image: linear-gradient(#000 60.01%, rgba(0, 0, 0, 0.3) 80.01%, transparent 100.02%);
+  }
+  .city-video { display: none; }
+  .city-text { margin-top: 0; }
+}

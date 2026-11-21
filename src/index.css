@@ -1,0 +1,109 @@
+@import 'tailwindcss';
+@import './styles/navbar.css' layer(components);
+@import './styles/hero.css' layer(components);
+@import './styles/backdrop.css' layer(components);
+@import './styles/loader.css' layer(components);
+@import './styles/cards.css' layer(components);
+@import './styles/meet-the-developer.css' layer(components);
+@import './styles/services.css' layer(components);
+@import './styles/city.css' layer(components);
+@import './styles/highlights.css' layer(components);
+@import './styles/rows.css' layer(components);
+@import './styles/footer.css' layer(components);
+
+/* Our free stand-ins for the live site's ArtDeco family (see AGENTS.md › Findings). */
+@font-face {
+  font-family: 'Outfit';
+  src: url('./assets/fonts/outfit-variable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Barlow Condensed';
+  src: url('./assets/fonts/barlow-condensed-700.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Barlow Condensed';
+  src: url('./assets/fonts/barlow-condensed-900.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  --color-ink: #0c0d1b; /* live body background, rgb(12, 13, 27) */
+  --font-sans: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Barlow Condensed', 'Outfit', ui-sans-serif, sans-serif;
+}
+
+/*
+  Live spacing scale: every size is a multiple of --u = min(1vw, 25.6px) / k, with k stepping by
+  viewport (measured on the live site, see AGENTS.md › Findings). --cue is the scroll-cue base.
+*/
+:root {
+  --k: 1;
+  --u: calc(min(1vw, 25.6px) / var(--k));
+  --cue: max(5vw, 10vh);
+
+  /* Section grid (live): side padding, column gap and block padding per breakpoint. */
+  --side: 7.5vw;
+  --gap: 12px;
+  --block: calc(var(--u) * 20);
+
+  /* Live theme colours, tweened by sections as they scroll in (Services). */
+  --page-bg: rgb(12, 13, 27);
+  --spot: rgb(31, 31, 56);
+}
+@media (min-width: 768px) {
+  :root { --gap: 16px; --block: calc(var(--u) * 32); }
+}
+@media (min-width: 1024px) {
+  :root { --side: 10vw; --gap: 18px; }
+}
+@media (min-width: 1440px) {
+  :root { --side: 13vw; --gap: 22.5px; }
+}
+@media (min-width: 1920px) {
+  :root { --side: calc(var(--u) * 64); --gap: 25px; }
+}
+@media (min-width: 2560px) {
+  :root { --gap: 27.5px; }
+}
+@media (min-width: 768px) and (max-width: 1023.98px) {
+  :root { --k: 3; }
+}
+@media (min-width: 1024px) and (max-width: 1439.98px) {
+  :root { --k: 3.5; }
+}
+@media (min-width: 1440px) {
+  :root { --k: 4; }
+}
+@media (min-aspect-ratio: 2.25 / 1) {
+  :root { --k: 4.5; }
+}
+@media (max-width: 767.98px) and (orientation: landscape) {
+  :root { --k: 2; }
+}
+
+
+@layer base {
+  /* As on live: html stays transparent so the fixed backdrop layers (z -4…-2) show through. */
+  html,
+  body {
+    color-scheme: dark;
+    min-height: 100vh;
+    overflow-x: clip;
+  }
+  html:has(.hero) { overscroll-behavior: none; }
+  body {
+    background-color: var(--page-bg);
+    color: #fff;
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}

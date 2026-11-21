@@ -1,0 +1,198 @@
+/* Section grid shared by card sections (live `_1uw8doi*`). */
+.grid-section {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  row-gap: calc(var(--u) * 8);
+  column-gap: var(--gap);
+  width: 100%;
+  max-width: 2560px;
+  margin-inline: auto;
+  padding: var(--block) var(--side);
+}
+
+/* Meet the Developer (live Launch Trailer `_6sjiom*`, see AGENTS.md › Findings). */
+.mtd {
+  --s: 1.8vh;
+
+  position: relative;
+  z-index: -1;
+}
+@media (min-aspect-ratio: 2.25 / 1), (max-width: 767.98px) and (orientation: landscape) {
+  .mtd { --s: 2.25vh; }
+}
+@media (max-width: 767.98px) and (orientation: portrait) {
+  .mtd { --s: 3vh; }
+}
+
+.mtd-featured {
+  position: relative;
+  display: grid;
+  grid-template: 1fr / 1fr;
+  width: 100%;
+  height: 135lvh;
+  margin-top: -65lvh;
+}
+
+.mtd-content {
+  position: relative;
+  z-index: 1;
+  grid-area: 1 / 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100dvh;
+  padding: 4% var(--side) min(calc(var(--u) * 8), calc(var(--s) * 2));
+  text-align: center;
+}
+.mtd-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: min(calc(var(--u) * 4), var(--s));
+}
+.mtd-eyebrow {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: min(calc(var(--u) * 6), calc(var(--s) * 1.5));
+  line-height: 1.1;
+  letter-spacing: 0.015em;
+  text-transform: uppercase;
+  color: #fbd9e0;
+}
+.mtd-title {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: min(calc(var(--u) * 16), calc(var(--s) * 4));
+  line-height: 1.1;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-shadow: 0 0 32px rgba(255, 255, 255, 0.3);
+}
+@media (min-aspect-ratio: 2.25 / 1), (max-width: 767.98px) and (orientation: landscape) {
+  .mtd-content { padding-top: 3%; }
+  .mtd-title { font-size: min(calc(var(--u) * 12), calc(var(--s) * 3)); }
+}
+@media (max-width: 767.98px) and (orientation: portrait) {
+  .mtd-content { padding: 20% min(calc(var(--u) * 4), var(--s)) min(calc(var(--u) * 8), calc(var(--s) * 2)); }
+  .mtd-text {
+    justify-content: center;
+    gap: min(calc(var(--u) * 3), calc(var(--s) * 0.75));
+    min-height: 20%;
+  }
+  .mtd-eyebrow {
+    font-size: min(calc(var(--u) * 5), calc(var(--s) * 1.25));
+    letter-spacing: 0.0175em;
+  }
+  .mtd-title {
+    font-size: min(calc(var(--u) * 8), calc(var(--s) * 2));
+    line-height: 1;
+  }
+}
+
+.mtd-play {
+  --size: max(5vw, 10vh);
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  place-items: center;
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
+  background: #11111733;
+  color: #ffffffe6;
+  outline: 4px solid transparent;
+  outline-offset: 4px;
+  transform: translate(-50%, -50%);
+  transition:
+    transform 0.5s ease-out,
+    background 0.5s ease-out,
+    box-shadow 0.5s ease-out,
+    outline-color 0.15s ease-out;
+}
+@media (min-width: 1440px) {
+  .mtd-play { --size: max(7vw, 10vh); }
+}
+.mtd-play svg { width: 36%; height: 36%; margin-left: 6%; }
+.mtd-play:hover {
+  background: #1111174d;
+  box-shadow: 0 0 60px rgba(255, 255, 255, 0.35);
+  transform: translate(-50%, -50%) scale(1.05);
+}
+.mtd-play:active {
+  background: #11111766;
+  transform: translate(-50%, -50%) scale(0.93);
+}
+.mtd-play:focus-visible { outline-color: #ffd4a8; }
+
+.mtd-bg {
+  position: relative;
+  z-index: 0;
+  grid-area: 1 / 1;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+.mtd-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(rgba(48, 25, 88, 0.2) 0%, rgba(48, 25, 88, 0) 30%);
+  pointer-events: none;
+}
+.mtd-bg picture,
+.mtd-bg img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.mtd-bg img {
+  object-fit: cover;
+  object-position: 50% 15%;
+}
+@media (max-width: 767.98px) {
+  .mtd-bg::after { background: linear-gradient(rgba(48, 25, 88, 0.3) 0%, rgba(48, 25, 88, 0) 30%); }
+}
+@media (max-width: 767.98px) and (orientation: portrait) {
+  /* Our scene's subject sits right of centre (~74% x); keep him in the portrait crop. */
+  .mtd-bg img { object-position: 80% 15%; }
+}
+
+.mtd-cards { margin-top: 135lvh; }
+
+/* Featured card: wide at ≥768, a centred column card on portrait phones (live tall layout). */
+@media (max-width: 767.98px) and (orientation: portrait) {
+  .card-featured::before { aspect-ratio: 1; }
+  .card-featured .card-text {
+    align-items: center;
+    text-align: center;
+  }
+  .card-featured[data-hs='1'] .card-title { --fs: 12; }
+  .card-featured[data-hs='2'] .card-title { --fs: 11; }
+  .card-featured:is([data-hs='3'], [data-hs='4'], [data-hs='5']) .card-title { --fs: 10; }
+  .card-featured[data-follow] .card-picture {
+    mask-image: radial-gradient(100% 200% at 50% 165%, #00000047 0%, #0000007a 52%, #000 87%);
+  }
+}
+
+/* Carousel (shared rules in cards.css): 2 per page from 768px or landscape, 3 and no scrolling
+   from 1280px. */
+@media (min-width: 768px), (orientation: landscape) {
+  .mtd-slide { flex-basis: 50%; }
+  .mtd-slide:nth-child(even) { scroll-snap-align: none; }
+}
+@media (min-width: 1280px) {
+  .mtd-carousel { overflow: visible; }
+  .mtd-slide { flex-basis: calc(100% / 3); }
+  .mtd-cards .pager-row { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mtd-featured {
+    height: 100vh;
+    margin-top: 0;
+  }
+  .mtd-cards { margin-top: 0; }
+}

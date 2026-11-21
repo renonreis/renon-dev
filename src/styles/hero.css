@@ -1,0 +1,291 @@
+/* Hero: layout of the live hero's final frame (after the intro), sizes in --u (see index.css). */
+.hero {
+  --hero-pad: 7.5vw;
+
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-content: center;
+  justify-items: center;
+  width: 100%;
+  max-width: 2560px;
+  height: 100svh;
+  margin: 0 auto;
+  padding: 0 var(--hero-pad);
+}
+@media (max-width: 767.98px) and (orientation: landscape) {
+  .hero { --hero-pad: 15vw; }
+}
+@media (min-width: 1024px) {
+  .hero { --hero-pad: 10vw; }
+}
+@media (min-width: 1440px) {
+  .hero { --hero-pad: 13vw; }
+}
+@media (min-width: 1920px) {
+  .hero { --hero-pad: calc(var(--u) * 64); }
+}
+
+.hero-col { width: min(100%, 120svh); }
+
+.hero-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(var(--u) * 8);
+  isolation: isolate;
+}
+
+.hero-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  margin: 0;
+}
+.hero-collage,
+.hero-frame picture,
+.hero-frame img {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.hero-logo { margin: 0; }
+
+/* Intro canvas (live: 100vw × 150svh, centred on the frame, behind the poster). */
+.hero-intro {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: -1;
+  width: 100vw;
+  height: 150svh;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.hero-info {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+}
+.hero-info-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: minmax(0, 1fr);
+  align-items: center;
+  /* Live row is exactly the button's height; longer copy overflows instead of moving the frame. */
+  height: calc(var(--u) * 14);
+  padding: 0 calc(var(--u) * 2.5);
+}
+
+.hero-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: calc(var(--u) * 3);
+  margin: 0;
+}
+.hero-title {
+  margin: 0;
+  font-size: calc(var(--u) * 6);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.0075em;
+  text-align: center;
+  text-transform: uppercase;
+  text-wrap: balance;
+  color: #fff;
+  text-shadow: 0 0 28px #fdfbff40;
+}
+.hero-subtitle {
+  margin: 0;
+  font-size: calc(var(--u) * 4);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.005em;
+  text-transform: uppercase;
+  text-wrap: balance;
+  color: #ccc2f5;
+  text-shadow: 0 0 28px #e6dcff40;
+}
+/* Only shown above the poster on portrait phones. */
+.hero-text-top { display: none; }
+
+.hero-button {
+  justify-self: center;
+  width: fit-content;
+  /* Resting point of the live pulse (Hero.jsx), which runs on top of this transition. */
+  color: #2d2b4f;
+  background: #ffb0c4;
+  box-shadow: 0 2px 50px rgba(255, 179, 199, 0.15);
+  transition-property: box-shadow, color, background-color, outline-color, border-color;
+  transition-duration: 0.5s;
+  transition-timing-function: linear;
+}
+.hero-button:hover {
+  color: #9c4958;
+  background: #fdfbff;
+  box-shadow: 0 0 28px rgba(53, 24, 32, 0.32), 0 0 110px rgba(255, 178, 198, 0.4);
+}
+.hero-button:focus-visible {
+  color: #9c4958;
+  background: #fdfbff;
+  box-shadow: 0 0 28px rgba(255, 178, 198, 0.32), 0 0 110px rgba(255, 178, 198, 0.4);
+}
+.hero-button:active {
+  color: #693c56;
+  background: #fed6e3;
+  box-shadow: 0 0 28px rgba(255, 178, 198, 0.32), 0 0 80px rgba(255, 178, 198, 0.3);
+}
+
+/* Tech tags sit where the live site has its platform logos. */
+.hero-tags {
+  --tag-h: calc(var(--u) * 5);
+
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  justify-self: end;
+  gap: calc(var(--u) * 3) calc(var(--u) * 4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.hero-tags li {
+  height: var(--tag-h);
+  font-size: var(--tag-h);
+  font-weight: 600;
+  line-height: 1;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+/* Scroll cue: the in-hero one is the static (reduced-motion) version; with motion the live site
+   uses one fixed cue per page that bobs and fades as the hero scrolls out. */
+.hero-cue,
+.scroll-cue svg {
+  width: min(calc(var(--cue) * 0.45), 2.1rem);
+  height: calc(var(--cue) * 0.45);
+  color: #ffb2c6;
+  filter: drop-shadow(0 0 calc(var(--cue) * 0.025) #ffb0c480) drop-shadow(0 0 calc(var(--cue) * 0.1) #000);
+}
+.hero-cue {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%);
+}
+.scroll-cue {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 90;
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  pointer-events: none;
+}
+
+/* Ours (the live hero has no such line): sits in the free band between the info row and the cue. */
+.hero-disclaimer {
+  position: absolute;
+  bottom: calc(var(--cue) * 0.45 + var(--u) * 3);
+  left: var(--hero-pad, 7.5vw);
+  right: var(--hero-pad, 7.5vw);
+  margin: 0;
+  font-size: max(11px, calc(var(--u) * 3));
+  line-height: 1.4;
+  text-align: center;
+  color: #ccc2f5;
+}
+
+/* Square-ish viewports (tablet portrait). */
+@media (min-aspect-ratio: 0.6 / 1) and (max-aspect-ratio: 1 / 1) {
+  .hero-col { width: min(80%, 60svh); }
+  .hero-frame { aspect-ratio: 1 / 1; }
+}
+@media (min-aspect-ratio: 2.25 / 1) {
+  .hero-tags { --tag-h: calc(var(--u) * 4.5); }
+}
+@media (max-width: 767.98px) {
+  .hero-stack { gap: calc(var(--u) * 6); }
+  .hero-tags { --tag-h: calc(var(--u) * 4.5); }
+}
+@media (max-aspect-ratio: 0.6 / 1) {
+  .hero-frame { aspect-ratio: 160 / 177; }
+}
+/* Ultra-wide screens and wide phone landscape. */
+@media (min-aspect-ratio: 2.25 / 1), (max-width: 767.98px) and (min-aspect-ratio: 2 / 1) {
+  .hero-col { width: min(100%, 150svh); }
+  .hero-stack { gap: calc(var(--u) * 5); }
+  .hero-frame { aspect-ratio: 64 / 27; }
+  .hero-info { min-width: max-content; }
+}
+@media (max-width: 767.98px) and (max-aspect-ratio: 1 / 1) {
+  .hero-col { width: min(100%, 40svh); }
+}
+
+/* Portrait phones: tagline above the poster, tags then button below it. */
+@media (max-width: 767.98px) and (orientation: portrait) {
+  .hero-text-top {
+    display: flex;
+    min-width: max-content;
+  }
+  .hero-info-row .hero-text { display: none; }
+  .hero-info-row {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    padding: 0;
+  }
+  .hero-text {
+    align-items: center;
+    gap: calc(var(--u) * 2);
+  }
+  .hero-subtitle { text-align: center; }
+  .hero-tags {
+    order: -1;
+    justify-content: center;
+    gap: calc(var(--u) * 6);
+    margin-top: calc(var(--u) * 3.5);
+    margin-bottom: calc(var(--u) * 2);
+  }
+  .hero-button {
+    margin-top: calc(var(--u) * 2.5);
+    min-height: calc(var(--u) * 12);
+    padding: 0 calc(var(--u) * 6);
+    font-size: calc(var(--u) * 4);
+  }
+}
+
+@media (min-aspect-ratio: 2.25 / 1), (max-width: 767.98px) and (orientation: landscape) {
+  .hero-info-row { gap: calc(var(--u) * 4); }
+}
+@media (min-width: 768px) {
+  .hero-title { font-size: calc(var(--u) * 5.5); }
+}
+
+/* Phone landscape below 768px: smaller type and button, no scroll cue. */
+@media (max-width: 767.98px) and (orientation: landscape) {
+  .hero-text { gap: calc(var(--u) * 1.5); }
+  .hero-title { font-size: calc(var(--u) * 3.5); }
+  .hero-subtitle { font-size: calc(var(--u) * 3); }
+  .hero-tags { --tag-h: calc(var(--u) * 3.5); }
+  .hero-button {
+    min-height: calc(var(--u) * 10);
+    padding: 0 calc(var(--u) * 5);
+    gap: calc(var(--u) * 1.5);
+    font-size: calc(var(--u) * 3.5);
+  }
+  .hero-cue,
+  .scroll-cue { display: none; }
+  .hero-disclaimer { bottom: calc(var(--u) * 2); }
+  .hero-info-row { height: calc(var(--u) * 10); }
+}

@@ -1,0 +1,55 @@
+/* Page backdrop (live values, see AGENTS.md › Findings): base colour, cursor glow, intro overlay. */
+.bg-base {
+  position: fixed;
+  inset: 0;
+  z-index: -4;
+  background: var(--page-bg);
+  pointer-events: none;
+}
+
+.cursor-glow-fade {
+  position: fixed;
+  inset: 0;
+  z-index: -3;
+  pointer-events: none;
+}
+
+.cursor-glow {
+  --glow-rest: 0.5;
+
+  position: fixed;
+  inset: 0;
+  z-index: -3;
+  display: block;
+  width: 150vmax;
+  height: 150vmax;
+  border-radius: 100%;
+  background: radial-gradient(50% 50% at 50% 50%, var(--spot) 0%, transparent 100%);
+  opacity: var(--glow-rest);
+  transform: translate(-50%, -50%);
+  transform-origin: 50% center;
+  pointer-events: none;
+  will-change: opacity, transform;
+}
+.cursor-glow::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeComposite operator='in' in2='SourceGraphic'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' fill='black'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  mask-image: radial-gradient(50% 50%, #000 0%, transparent 100%);
+  pointer-events: none;
+}
+@media (pointer: coarse) {
+  .cursor-glow,
+  .cursor-glow::after { display: none; }
+}
+
+.bg-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background: transparent;
+  pointer-events: none;
+}
