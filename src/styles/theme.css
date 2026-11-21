@@ -1,0 +1,98 @@
+/*
+ * Design tokens exported from the Paper file `renon-dev` (style board, approved again 2026-11-20,
+ * token hash 0379d9d6). Paper is the source: change a token there, then export it here again.
+ * Font stacks add system fallbacks after the Paper family name.
+ */
+@theme {
+	--color-*: initial;
+	--font-*: initial;
+	--text-*: initial;
+	--breakpoint-*: initial;
+	--radius-*: initial;
+
+	--color-surface: #161616;
+	--color-surface-raised: #1f1f22;
+	--color-text: #eeeef0;
+	--color-text-muted: #a6a6a6;
+	--color-hairline: rgb(238 238 240 / 14%);
+	--color-control-border: rgb(238 238 240 / 48%);
+	--color-scrim: rgb(22 22 22 / 72%);
+	--color-scrim-opaque: rgb(22 22 22 / 92%);
+	--color-focus: #eeeef0;
+	--color-violet: #b794ff;
+	--color-coral: #f97b7c;
+	--color-blue: #71a2f0;
+	--color-green: #5c985a;
+	--color-on-accent: #161616;
+
+	--font-display: "Barlow Condensed", "Arial Narrow", sans-serif;
+	--font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
+	--font-mono: "Geist Mono", ui-monospace, monospace;
+
+	--text-eyebrow: 12px;
+	--text-tag: 13px;
+	--text-small: 14px;
+	--text-body: 16px;
+	--text-body-lg: 18px;
+	--text-card-title-sm: 32px;
+	--text-section-title-sm: 40px;
+	--text-card-title: 48px;
+	--text-hero-title-sm: 56px;
+	--text-section-title: 72px;
+	--text-hero-title: 120px;
+	--text-button: 15px;
+	--text-wordmark: 28px;
+	--text-wordmark-sm: 24px;
+
+	--font-weight-regular: 400;
+	--font-weight-medium: 500;
+	--font-weight-semibold: 600;
+
+	--tracking-display: -0.01em;
+	--tracking-body: 0em;
+	--tracking-label: 0.12em;
+
+	--leading-eyebrow: 16px;
+	--leading-small: 20px;
+	--leading-body: 24px;
+	--leading-body-lg: 28px;
+	--leading-card-title-sm: 32px;
+	--leading-section-title-sm: 40px;
+	--leading-card-title: 48px;
+	--leading-hero-title-sm: 56px;
+	--leading-section-title: 68px;
+	--leading-hero-title: 108px;
+
+	--opacity-hairline: 14%;
+	--opacity-glow: 18%;
+	--opacity-scrim: 72%;
+
+	--breakpoint-phone: 390px;
+	--breakpoint-desktop: 1024px;
+	--breakpoint-wide: 1440px;
+
+	--container-content: 1312px;
+
+	--spacing-half: 4px;
+	--spacing-1: 8px;
+	--spacing-1-5: 12px;
+	--spacing-2: 16px;
+	--spacing-3: 24px;
+	--spacing-4: 32px;
+	--spacing-5: 40px;
+	--spacing-6: 48px;
+	--spacing-8: 64px;
+	--spacing-10: 80px;
+	--spacing-12: 96px;
+	--spacing-20: 160px;
+	--spacing-icon: 20px;
+	--spacing-target: 44px;
+	--spacing-nav-sm: 56px;
+	--spacing-nav: 72px;
+
+	--radius-chip: 8px;
+	--radius-slot-sm: 12px;
+	--radius-card-sm: 16px;
+	--radius-card: 24px;
+	--radius-pill: 999px;
+}

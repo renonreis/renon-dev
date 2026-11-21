@@ -1,0 +1,3 @@
+#!/bin/sh
+# Biome on staged files only. Fix with `pnpm format`, then stage again.
+exec pnpm exec biome check --staged --no-errors-on-unmatched

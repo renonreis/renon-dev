@@ -1,0 +1,10 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Counter from "./Counter";
+---
+
+<BaseLayout locale="en" title="Island check" description="Test only page for spec 0002, AC-3." indexable={false}>
+	<main class="p-3">
+		<Counter client:load />
+	</main>
+</BaseLayout>

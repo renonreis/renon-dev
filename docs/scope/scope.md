@@ -22,10 +22,10 @@ _These are recommendations to keep your build orderly, not requirements. Skip an
 
 | # | Feature | Phase | Status |
 |---|---------|-------|--------|
-| 1 | Stack & architecture | Foundation | planned |
-| 2 | Coding standards & tooling | Foundation | planned |
-| 3 | Content model & bilingual copy | Foundation | planned |
-| 4 | Page design in Paper | Foundation | in-progress |
+| 1 | Stack & architecture | Foundation | done |
+| 2 | Coding standards & tooling | Foundation | done |
+| 3 | Content model & bilingual copy | Foundation | in-progress |
+| 4 | Page design in Paper | Foundation | done |
 | 5 | Layout & motion foundation | Foundation | planned |
 | 6 | Hero, navbar & footer | Release 1 | planned |
 | 7 | Selected work | Release 1 | planned |
@@ -44,22 +44,35 @@ _These are recommendations to keep your build orderly, not requirements. Skip an
 
 ## Foundations
 
-### 1. Stack & architecture · needs a decision · Beta
+### 1. Stack & architecture · done · Beta
 Choose the static site stack and hosting shape, then scaffold a runnable project. Inputs: the renon.dev audit recommended a static build (`renonreis/renon.dev` `docs/audit/2026-11-20-zero-dawn-audit.md`); the reference prompt used a React, Vite, Tailwind, GSAP, Lenis stack.
 **Done when:** the stack and hosting approach are recorded in a spec, and the empty scaffold runs locally and builds to static files.
-- [ ] Decide the stack (spec): `/architect stack & architecture`
+- [x] Decide the stack (spec): `/architect stack & architecture`
+- [x] Scaffold from the decision: `/develop stack & architecture: scaffold` (AC-1 to AC-6)
+- [x] Verify it: `/check verify stack & architecture`
+- [x] Test it: `/test stack & architecture`
+Spec [0002](../specs/0002-static-site-stack/index.md) · code in `src/`, `astro.config.mjs`, `scripts/`, `.github/workflows/`
 
-### 2. Coding standards & tooling
+### 2. Coding standards & tooling · done
 Capture conventions from the scaffolded project, then install lint, format and CI.
 **Done when:** root `AGENTS.md` (with its `## Git` block) reflects the real stack, and lint, format and build run clean in CI.
-- [ ] Capture conventions + tooling choices: `/audit`
+- [x] Capture conventions + tooling choices: `/audit` · root `AGENTS.md`, `src/AGENTS.md`
+- [x] Install tooling: `/develop tooling` · Biome pre-commit hook (`.githooks/`), Vitest and Playwright in `site-check`
 
-### 3. Content model & bilingual copy · needs a decision
+### 3. Content model & bilingual copy · in-progress
 One content source that every section reads, in English and Portuguese, with copy drafted from the CVs (first person, real clients and metrics).
 **Done when:** every word on the page lives in the content source in both languages, the language can be switched and is reflected in the URL, and the engineer has reviewed the copy.
-- [ ] Design it (spec): `/architect content model & bilingual copy`
+- [x] Design it (spec): `/architect content model & bilingual copy`
+- [ ] Build it: `/develop content model & bilingual copy`
+   - [ ] Content types, `shared.ts`, English and Portuguese copy (AC-2 to AC-5, AC-10, AC-12)
+   - [ ] Pages, layout and 404 read the content; language switch with the hash script (AC-1, AC-6 to AC-8, AC-12)
+   - [ ] Vitest and Playwright checks (AC-1 to AC-10, AC-12)
+   - [ ] Copy review pull request with the EN | PT table, review recorded here (AC-4, AC-9, AC-11)
+- [ ] Verify it: `/check verify content model & bilingual copy`
+- [ ] Follow-up: you supply the "Off the clock" story during the copy review
+Spec [0003](../specs/0003-content-model.md)
 
-### 4. Page design in Paper · in-progress
+### 4. Page design in Paper · done
 Desktop and mobile screens for the whole page in Paper, from the references: section order, type scale, colours, spacing, art slots, and notes on the motion of each section.
 **Done when:** every section in features 6 to 10 has a desktop and a mobile screen in Paper with placeholder art slots, and the engineer approved them.
 - [x] Design it (spec): `/architect page design`
@@ -67,8 +80,8 @@ Desktop and mobile screens for the whole page in Paper, from the references: sec
    - [x] Paper file and style artboard: palette, type, spacing, components, focus states (AC-2, AC-7)
    - [x] Every section at desktop width with real copy and labelled placeholders (AC-1, AC-3 to AC-6)
    - [x] Phone artboards, Portuguese length check, motion notes, contrast (AC-1, AC-4, AC-7, AC-8)
-   - [x] Review with you until approved (AC-9) · approved 2026-11-20 by the engineer, Paper file `renon-dev` as it stood at commit 846be45; any later change goes back through review
-- [ ] Verify it: `/check verify page design`
+   - [x] Review with you until approved (AC-9) · approved 2026-11-20 by the engineer, Paper file `renon-dev` as it stood at commit 846be45; any later change goes back through review · re-approved 2026-11-20 after style board section 06 (component dimensions) and five fine step tokens were added for AC-2; motion notes kept on Notes artboards beside each pair, accepted by the engineer for AC-7
+- [x] Verify it: `/check verify page design` · PASS 2026-11-20
 Spec [0001](../specs/0001-page-design.md) · design in Paper: [renon-dev](https://app.paper.design/file/01M7X587C321BGJ0TWYAX5C9ED)
 
 ### 5. Layout & motion foundation · needs a decision

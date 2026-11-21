@@ -1,0 +1,50 @@
+---
+import "../styles/global.css";
+import {
+	defaultLocale,
+	homePath,
+	htmlLang,
+	type Locale,
+	locales,
+} from "../i18n/routes";
+
+interface Props {
+	locale: Locale;
+	title: string;
+	description: string;
+	/** Off for pages that must stay out of search results (404, test pages). */
+	indexable?: boolean;
+}
+
+const { locale, title, description, indexable = true } = Astro.props;
+const site = Astro.site ?? new URL("https://renon.dev");
+const canonical = new URL(homePath[locale], site);
+---
+
+<!doctype html>
+<html lang={htmlLang[locale]}>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="theme-color" content="#161616" />
+		<link rel="icon" href="data:," />
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		{
+			indexable ? (
+				<>
+					<link rel="canonical" href={canonical} />
+					{locales.map((alt) => (
+						<link rel="alternate" hreflang={htmlLang[alt]} href={new URL(homePath[alt], site)} />
+					))}
+					<link rel="alternate" hreflang="x-default" href={new URL(homePath[defaultLocale], site)} />
+				</>
+			) : (
+				<meta name="robots" content="noindex" />
+			)
+		}
+	</head>
+	<body class="min-h-dvh bg-surface font-sans text-body leading-body text-text antialiased">
+		<slot />
+	</body>
+</html>
