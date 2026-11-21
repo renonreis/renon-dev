@@ -1,0 +1,51 @@
+---
+import { getContent, shared } from "../i18n/content";
+import { homePath, htmlLang, type Locale, locales } from "../i18n/routes";
+
+// EN / PT switch (spec 0003, AC-6 to AC-8). Plain links work without JavaScript; the inline script
+// only carries the current hash over to the other language, so the visitor stays on the same section.
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+const { languageSwitch } = getContent(locale);
+---
+
+<nav aria-label={languageSwitch.groupLabel} data-language-switch>
+	<ul class="flex w-fit items-center rounded-pill border border-control-border">
+		{
+			locales.map((target) => {
+				const current = target === locale;
+				return (
+					<li>
+						<a
+							href={homePath[target]}
+							hreflang={htmlLang[target]}
+							lang={htmlLang[target]}
+							aria-label={languageSwitch.names[target]}
+							aria-current={current ? "page" : undefined}
+							class:list={[
+								"flex size-target items-center justify-center rounded-pill font-mono text-tag leading-eyebrow font-medium",
+								current ? "bg-text text-on-accent" : "text-text-muted hover:text-text",
+							]}
+						>
+							{shared.localeLabels[target]}
+						</a>
+					</li>
+				);
+			})
+		}
+	</ul>
+</nav>
+
+<script is:inline>
+	for (const link of document.querySelectorAll("[data-language-switch] a[hreflang]")) {
+		link.addEventListener("click", (event) => {
+			const modified = event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey;
+			if (!location.hash || modified || event.defaultPrevented) return;
+			event.preventDefault();
+			location.assign(link.getAttribute("href") + location.hash);
+		});
+	}
+</script>
