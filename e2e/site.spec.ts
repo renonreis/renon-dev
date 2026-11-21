@@ -1,5 +1,5 @@
 // Spec 0002 acceptance criteria, checked in a real browser against the static build.
-// Page copy is placeholder text until feature 3, so these tests never assert copy.
+// Copy is asserted in content.spec.ts (spec 0003); these tests never assert copy.
 import { expect, type Page, type Request, test } from "@playwright/test";
 
 const site = "https://renon.dev";
@@ -130,7 +130,9 @@ for (const { path, lang, canonical, switchTo } of pages) {
 		}) => {
 			await page.goto(path);
 
-			const link = page.locator(`main a[hreflang="${switchTo.hreflang}"]`);
+			const link = page.locator(
+				`[data-language-switch] a[hreflang="${switchTo.hreflang}"]`,
+			);
 			await expect(link).toHaveAttribute("href", switchTo.path);
 			await link.focus();
 			await expect(link).toBeFocused();
