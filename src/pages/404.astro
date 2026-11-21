@@ -1,18 +1,35 @@
 ---
-import { homePath } from "../i18n/routes";
+import { getContent, shared } from "../i18n/content";
+import { homePath, htmlLang, locales } from "../i18n/routes";
 import BaseLayout from "../layouts/BaseLayout.astro";
+
+// Cloudflare serves one 404.html for every path, so it carries both languages (spec 0003, AC-1).
+const en = getContent("en");
 ---
 
-<BaseLayout locale="en" title="Page not found · renon.dev" description="This page does not exist." indexable={false}>
-	<main class="mx-auto flex max-w-content flex-col gap-3 px-3 py-12 desktop:px-8">
-		<p class="font-mono text-eyebrow leading-eyebrow font-medium tracking-label text-text-muted uppercase">404</p>
-		<h1 class="font-display text-section-title-sm leading-section-title-sm font-semibold tracking-display">
-			Page not found
-		</h1>
-		<p class="text-body leading-body text-text-muted" lang="pt-BR">Página não encontrada.</p>
-		<p class="flex gap-3 text-small leading-small font-medium">
-			<a class="underline underline-offset-4" href={homePath.en}>Go to the home page</a>
-			<a class="underline underline-offset-4" href={homePath.pt} hreflang="pt-BR" lang="pt-BR">Ir para a página inicial</a>
+<BaseLayout locale="en" title={en.notFound.title} description={en.notFound.body} indexable={false}>
+	<main class="mx-auto flex max-w-content flex-col gap-8 px-3 py-12 desktop:px-8">
+		<p class="font-mono text-eyebrow leading-eyebrow font-medium tracking-label text-text-muted uppercase">
+			{shared.notFoundCode}
 		</p>
+		{
+			locales.map((locale) => {
+				const { notFound } = getContent(locale);
+				const Heading = locale === "en" ? "h1" : "h2";
+				return (
+					<div class="flex flex-col gap-3" lang={locale === "en" ? undefined : htmlLang[locale]}>
+						<Heading class="font-display text-section-title-sm leading-section-title-sm font-semibold tracking-display">
+							{notFound.title}
+						</Heading>
+						<p class="text-body leading-body text-text-muted">{notFound.body}</p>
+						<a
+							class="flex min-h-target w-fit items-center text-small leading-small font-medium underline underline-offset-4"
+							href={homePath[locale]}
+							hreflang={htmlLang[locale]}>{notFound.backHome}</a
+						>
+					</div>
+				);
+			})
+		}
 	</main>
 </BaseLayout>
