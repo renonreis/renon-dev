@@ -64,13 +64,13 @@ One content source that every section reads, in English and Portuguese, with cop
 **Done when:** every word on the page lives in the content source in both languages, the language can be switched and is reflected in the URL, and the engineer has reviewed the copy.
 - [x] Design it (spec): `/architect content model & bilingual copy`
 - [ ] Build it: `/develop content model & bilingual copy`
-   - [ ] Content types, `shared.ts`, English and Portuguese copy (AC-2 to AC-5, AC-10, AC-12)
-   - [ ] Pages, layout and 404 read the content; language switch with the hash script (AC-1, AC-6 to AC-8, AC-12)
-   - [ ] Vitest and Playwright checks (AC-1 to AC-10, AC-12)
+   - [x] Content types, `shared.ts`, English and Portuguese copy (AC-2 to AC-5, AC-10, AC-12)
+   - [x] Pages, layout and 404 read the content; language switch with the hash script (AC-1, AC-6 to AC-8, AC-12)
+   - [x] Vitest and Playwright checks (AC-1 to AC-10, AC-12)
    - [ ] Copy review pull request with the EN | PT table, review recorded here (AC-4, AC-9, AC-11)
 - [ ] Verify it: `/check verify content model & bilingual copy`
 - [ ] Follow-up: you supply the "Off the clock" story during the copy review
-Spec [0003](../specs/0003-content-model.md)
+Spec [0003](../specs/0003-content-model.md) · code in `src/i18n/content/`, `src/components/LanguageSwitch.astro`, `src/components/HomePage.astro`, `src/components/sections/Hero.astro`
 
 ### 4. Page design in Paper · done
 Desktop and mobile screens for the whole page in Paper, from the references: section order, type scale, colours, spacing, art slots, and notes on the motion of each section.
