@@ -24,7 +24,7 @@ _These are recommendations to keep your build orderly, not requirements. Skip an
 |---|---------|-------|--------|
 | 1 | Stack & architecture | Foundation | done |
 | 2 | Coding standards & tooling | Foundation | done |
-| 3 | Content model & bilingual copy | Foundation | in-progress |
+| 3 | Content model & bilingual copy | Foundation | done |
 | 4 | Page design in Paper | Foundation | done |
 | 5 | Layout & motion foundation | Foundation | planned |
 | 6 | Hero, navbar & footer | Release 1 | planned |
@@ -59,7 +59,7 @@ Capture conventions from the scaffolded project, then install lint, format and C
 - [x] Capture conventions + tooling choices: `/audit` · root `AGENTS.md`, `src/AGENTS.md`
 - [x] Install tooling: `/develop tooling` · Biome pre-commit hook (`.githooks/`), Vitest and Playwright in `site-check`
 
-### 3. Content model & bilingual copy · in-progress
+### 3. Content model & bilingual copy · done
 One content source that every section reads, in English and Portuguese, with copy drafted from the CVs (first person, real clients and metrics).
 **Done when:** every word on the page lives in the content source in both languages, the language can be switched and is reflected in the URL, and the engineer has reviewed the copy.
 - [x] Design it (spec): `/architect content model & bilingual copy`
