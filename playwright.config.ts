@@ -25,6 +25,18 @@ export default defineConfig({
 				...devices["Desktop Chrome"],
 				viewport: { width: 375, height: 812 },
 			},
+			// Spec 0004 motion checks set their own viewports and pointers; they run once, on desktop.
+			testIgnore: /motion\.spec\.ts/,
+		},
+		{
+			// Spec 0004, AC-8: the skip link and focus baseline must hold in WebKit too.
+			name: "webkit",
+			use: {
+				...devices["Desktop Safari"],
+				viewport: { width: 1280, height: 800 },
+			},
+			testMatch: /motion\.spec\.ts/,
+			grep: /@keyboard/,
 		},
 	],
 	webServer: {

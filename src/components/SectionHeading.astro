@@ -1,0 +1,42 @@
+---
+// Section eyebrow and title (Paper section title role). The h2 is the anchor focus target (AC-4).
+interface Props {
+	id: string;
+	title: string;
+	eyebrow?: string;
+	accent?: "coral" | "blue" | "violet" | "green";
+}
+
+const accentClass = {
+	coral: "text-coral",
+	blue: "text-blue",
+	violet: "text-violet",
+	green: "text-green",
+} as const;
+
+const { id, title, eyebrow, accent } = Astro.props;
+---
+
+<div class="flex flex-col gap-2">
+	{
+		eyebrow && (
+			<p
+				class:list={[
+					"font-mono text-eyebrow leading-eyebrow font-medium tracking-label uppercase",
+					accent ? accentClass[accent] : "text-text-muted",
+				]}
+			>
+				{eyebrow}
+			</p>
+		)
+	}
+	<h2
+		id={id}
+		tabindex="-1"
+		data-section-focus
+		data-reveal
+		class="font-display text-section-title-sm leading-section-title-sm font-semibold tracking-display uppercase desktop:text-section-title desktop:leading-section-title"
+	>
+		{title}
+	</h2>
+</div>

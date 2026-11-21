@@ -1,0 +1,27 @@
+---
+// One page section shell (spec 0004): id, accessible name from its heading, and the page container.
+// Without a heading the section itself is the anchor focus target. `minHeight` is temporary.
+interface Props {
+	id: string;
+	headingId?: string;
+	minHeight?: { readonly phone: number; readonly desktop: number };
+	class?: string;
+}
+
+const { id, headingId, minHeight, class: className } = Astro.props;
+const style = minHeight
+	? `--shell-min-phone: ${minHeight.phone}px; --shell-min-desktop: ${minHeight.desktop}px`
+	: undefined;
+---
+
+<section
+	id={id}
+	aria-labelledby={headingId}
+	tabindex={headingId ? undefined : -1}
+	class:list={[minHeight && "shell-min", className]}
+	style={style}
+>
+	<div class="container-page">
+		<slot />
+	</div>
+</section>

@@ -11,30 +11,32 @@ const { locale } = Astro.props;
 const { hero, nav } = getContent(locale);
 ---
 
-<section id="hero" class="flex flex-col gap-6">
-	<h1 class="font-display text-hero-title-sm leading-hero-title-sm font-semibold tracking-display uppercase desktop:text-hero-title desktop:leading-hero-title">
-		{shared.wordmark}
-	</h1>
-	<div class="flex flex-col gap-2">
-		<p class="font-display text-card-title-sm leading-card-title-sm font-semibold tracking-display uppercase desktop:text-card-title desktop:leading-card-title">
-			<span>{hero.role}</span>
-			<span class="block text-violet">{hero.roleAccent}</span>
-		</p>
-		<p class="font-mono text-eyebrow leading-eyebrow font-medium tracking-label text-text-muted uppercase">
-			{hero.location}
-		</p>
+<section id="hero">
+	<div class="container-page flex flex-col gap-6">
+		<h1 class="font-display text-hero-title-sm leading-hero-title-sm font-semibold tracking-display uppercase desktop:text-hero-title desktop:leading-hero-title">
+			{shared.wordmark}
+		</h1>
+		<div class="flex flex-col gap-2">
+			<p class="font-display text-card-title-sm leading-card-title-sm font-semibold tracking-display uppercase desktop:text-card-title desktop:leading-card-title">
+				<span>{hero.role}</span>
+				<span class="block text-violet">{hero.roleAccent}</span>
+			</p>
+			<p class="font-mono text-eyebrow leading-eyebrow font-medium tracking-label text-text-muted uppercase">
+				{hero.location}
+			</p>
+		</div>
+		<ul class="flex flex-wrap gap-1">
+			{
+				shared.heroTags.map((tag) => (
+					<li class="flex h-4 items-center rounded-pill border border-hairline px-[14px] font-mono text-tag leading-eyebrow font-medium tracking-label uppercase">
+						{tag}
+					</li>
+				))
+			}
+		</ul>
+		<a
+			class="flex h-6 w-fit items-center rounded-pill bg-violet px-3 text-button leading-small font-medium text-on-accent"
+			href={mailtoHref}>{nav.hireMe}</a
+		>
 	</div>
-	<ul class="flex flex-wrap gap-1">
-		{
-			shared.heroTags.map((tag) => (
-				<li class="flex h-4 items-center rounded-pill border border-hairline px-[14px] font-mono text-tag leading-eyebrow font-medium tracking-label uppercase">
-					{tag}
-				</li>
-			))
-		}
-	</ul>
-	<a
-		class="flex h-6 w-fit items-center rounded-pill bg-violet px-3 text-button leading-small font-medium text-on-accent"
-		href={mailtoHref}>{nav.hireMe}</a
-	>
 </section>

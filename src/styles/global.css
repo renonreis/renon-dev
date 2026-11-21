@@ -1,6 +1,19 @@
 @import "tailwindcss";
 @import "./fonts.css";
 @import "./theme.css";
+@import "lenis/dist/lenis.css";
+
+/* Page container (spec 0004, AC-1): max width 1312, gutters 16 below 1024 and 64 from 1024. */
+@utility container-page {
+	margin-inline: auto;
+	width: 100%;
+	max-width: var(--container-content);
+	padding-inline: var(--spacing-2);
+
+	@variant desktop {
+		padding-inline: var(--spacing-8);
+	}
+}
 
 @layer base {
 	html {
@@ -8,10 +21,82 @@
 		color: var(--color-text);
 		font-family: var(--font-sans);
 		color-scheme: dark;
+		/* Clears the fixed bar feature 6 adds (AC-8): bar height plus 16. */
+		scroll-padding-top: calc(var(--spacing-nav-sm) + var(--spacing-2));
+
+		@variant desktop {
+			scroll-padding-top: calc(var(--spacing-nav) + var(--spacing-2));
+		}
 	}
 
 	:focus-visible {
 		outline: 2px solid var(--color-focus);
 		outline-offset: 2px;
+	}
+
+	/* Anchor focus targets are not controls, so they show no outline (AC-8). */
+	:is(main, section, footer, [data-section-focus])[tabindex="-1"]:focus {
+		outline: none;
+	}
+}
+
+@layer components {
+	/* Temporary shell heights (spec 0004 shell height table); features 7 to 10 remove them. */
+	.shell-min {
+		min-height: var(--shell-min-phone);
+
+		@variant desktop {
+			min-height: var(--shell-min-desktop);
+		}
+	}
+
+	/* Cursor glow (AC-5): only painted with motion allowed and a fine hover pointer. */
+	[data-cursor-glow] {
+		--glow-size: 320px;
+		--glow-blur: 120px;
+		display: none;
+		position: fixed;
+		top: 0;
+		left: 0;
+		z-index: 0;
+		width: var(--glow-size);
+		height: var(--glow-size);
+		border-radius: 50%;
+		background-color: color-mix(
+			in srgb,
+			var(--color-violet) var(--opacity-glow),
+			transparent
+		);
+		filter: blur(var(--glow-blur));
+		opacity: 0;
+		pointer-events: none;
+		will-change: transform, opacity;
+	}
+}
+
+/* Hidden states exist only on screen, once the motion module sets data-motion (AC-6, AC-7); print shows everything. */
+@media screen and (prefers-reduced-motion: no-preference) {
+	/* Only the way in animates; hiding is instant and happens below the fold. */
+	html[data-motion] [data-reveal][data-revealed] {
+		transition:
+			opacity 200ms cubic-bezier(0.2, 0, 0, 1),
+			transform 200ms cubic-bezier(0.2, 0, 0, 1);
+	}
+
+	html[data-motion] [data-reveal]:not([data-revealed]) {
+		opacity: 0;
+		transform: translateY(8px);
+	}
+
+	html[data-motion] [data-reveal][data-revealed="instant"] {
+		transition: none;
+	}
+}
+
+@media screen and (prefers-reduced-motion: no-preference) and (
+		hover: hover
+	) and (pointer: fine) {
+	html[data-motion] [data-cursor-glow] {
+		display: block;
 	}
 }

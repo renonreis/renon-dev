@@ -66,15 +66,23 @@ for (const { path, lang, canonical, switchTo } of pages) {
 			await expect(page.getByRole("heading", { level: 1 })).toHaveCount(1);
 		});
 
-		test("covers AC-3: loads no JavaScript at all", async ({ page }) => {
+		test("covers AC-3: loads no React, only the same origin motion module (spec 0004)", async ({
+			page,
+			baseURL,
+		}) => {
 			const requests = recordRequests(page);
 
 			await page.goto(path);
 			await page.evaluate(() => document.fonts.ready);
 
-			expect(
-				requests.filter((request) => request.resourceType() === "script"),
-			).toEqual([]);
+			const scripts = requests.filter(
+				(request) => request.resourceType() === "script",
+			);
+			expect(scripts.length).toBeLessThanOrEqual(1);
+			for (const script of scripts)
+				expect(new URL(script.url()).origin).toBe(
+					new URL(baseURL ?? "").origin,
+				);
 			await expect(page.locator("astro-island")).toHaveCount(0);
 		});
 

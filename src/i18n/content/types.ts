@@ -36,6 +36,9 @@ export interface Content {
 		readonly description: string;
 		readonly ogImageAlt: string;
 	};
+	readonly a11y: {
+		readonly skipToContent: string;
+	};
 	readonly nav: {
 		readonly work: string;
 		readonly services: string;

@@ -2,9 +2,17 @@
 import type { Locale } from "../i18n/routes";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import LanguageSwitch from "./LanguageSwitch.astro";
+import About from "./sections/About.astro";
+import Clients from "./sections/Clients.astro";
+import Footer from "./sections/Footer.astro";
 import Hero from "./sections/Hero.astro";
+import Highlights from "./sections/Highlights.astro";
+import Now from "./sections/Now.astro";
+import Services from "./sections/Services.astro";
+import Work from "./sections/Work.astro";
 
 // The one page body both language routes render, so `/` and `/pt/` share the same sections and ids.
+// Sections follow the Paper order (spec 0004, AC-2), 96 apart below 1024 wide and 160 from 1024.
 interface Props {
 	locale: Locale;
 }
@@ -13,10 +21,19 @@ const { locale } = Astro.props;
 ---
 
 <BaseLayout locale={locale}>
-	<header class="mx-auto flex max-w-content justify-end px-3 py-2 desktop:px-8">
-		<LanguageSwitch locale={locale} />
+	<header class="relative z-1">
+		<div class="container-page flex justify-end py-2">
+			<LanguageSwitch locale={locale} />
+		</div>
 	</header>
-	<main class="mx-auto flex max-w-content flex-col px-3 py-12 desktop:px-8">
+	<main id="main" tabindex="-1" class="relative z-1 flex flex-col gap-12 py-12 desktop:gap-20 desktop:pb-20">
 		<Hero locale={locale} />
+		<Work locale={locale} />
+		<Now locale={locale} />
+		<Services locale={locale} />
+		<About locale={locale} />
+		<Highlights />
+		<Clients locale={locale} />
 	</main>
+	<Footer />
 </BaseLayout>

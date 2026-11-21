@@ -26,7 +26,7 @@ _These are recommendations to keep your build orderly, not requirements. Skip an
 | 2 | Coding standards & tooling | Foundation | done |
 | 3 | Content model & bilingual copy | Foundation | done |
 | 4 | Page design in Paper | Foundation | done |
-| 5 | Layout & motion foundation | Foundation | planned |
+| 5 | Layout & motion foundation | Foundation | in-progress |
 | 6 | Hero, navbar & footer | Release 1 | planned |
 | 7 | Selected work | Release 1 | planned |
 | 8 | Services | Release 1 | planned |
@@ -84,10 +84,18 @@ Desktop and mobile screens for the whole page in Paper, from the references: sec
 - [x] Verify it: `/check verify page design` · PASS 2026-11-20
 Spec [0001](../specs/0001-page-design.md) · design in Paper: [renon-dev](https://app.paper.design/file/01M7X587C321BGJ0TWYAX5C9ED)
 
-### 5. Layout & motion foundation · needs a decision
+### 5. Layout & motion foundation · in-progress
 Shared pieces every section stands on: page grid, smooth scrolling, the cursor glow, section transitions, and the reduced motion and keyboard baseline.
 **Done when:** an empty page scrolls smoothly with the cursor glow, `prefers-reduced-motion: reduce` gives a static readable page, and focus is always visible.
-- [ ] Design it (spec): `/architect layout & motion foundation`
+- [x] Design it (spec): `/architect layout & motion foundation`
+- [x] Build it: `/develop layout & motion foundation`
+   - [x] Container, section shells in Paper order, scroll padding, skip link and `a11y.skipToContent` (AC-1, AC-2, AC-8)
+   - [x] Motion module: GSAP ticker driving Lenis, `matchMedia` teardown, motion budget check (AC-3, AC-7, AC-9)
+   - [x] In page anchors with focus, reveals on entry, cursor glow (AC-4 to AC-7)
+   - [x] Vitest and Playwright motion checks, WebKit keyboard check (AC-1 to AC-9)
+- [ ] Verify it: `/check verify layout & motion foundation`
+- [ ] Follow-up: skip link and the new section ids reviewed in Paper (spec 0004 Follow-up)
+Spec [0004](../specs/0004-layout-motion-foundation/index.md) · code in `src/components/` (`Section`, `SectionHeading`, `SkipLink`, `CursorGlow`, `Motion`, `sections/`), `src/scripts/motion/`, `scripts/check-motion-budget.mjs`
 
 ## Release 1: the whole page, simple motion
 

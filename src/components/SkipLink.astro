@@ -1,0 +1,19 @@
+---
+import { getContent } from "../i18n/content";
+import type { Locale } from "../i18n/routes";
+
+// First Tab stop on every page (spec 0004, AC-8). A plain fragment link: the native jump moves focus
+// to `main`, with no script and no smooth scroll.
+interface Props {
+	locale: Locale;
+}
+
+const { a11y } = getContent(Astro.props.locale);
+---
+
+<a
+	href="#main"
+	data-skip-link
+	class="sr-only z-10 items-center rounded-pill bg-violet text-button leading-small font-medium text-on-accent focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:flex focus:h-6 focus:px-3 desktop:focus:left-8"
+	>{a11y.skipToContent}</a
+>
